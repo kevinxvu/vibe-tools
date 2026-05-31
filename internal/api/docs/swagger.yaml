@@ -1,0 +1,1380 @@
+basePath: /
+definitions:
+  AuthToken:
+    properties:
+      access_token:
+        type: string
+      expires_in:
+        type: integer
+      refresh_token:
+        type: string
+      token_type:
+        type: string
+    type: object
+  Country:
+    properties:
+      code:
+        type: string
+      created_at:
+        description: The time that record is created
+        type: string
+      deleted_at:
+        allOf:
+        - $ref: '#/definitions/gorm.DeletedAt'
+        description: DeletedAt *time.Time `json:"deleted_at" sql:"index"`
+      id:
+        description: ID of the record
+        type: integer
+      name:
+        type: string
+      phone_code:
+        type: string
+      updated_at:
+        description: The latest time that record is updated
+        type: string
+    type: object
+  ErrorResponse:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      type:
+        type: string
+    type: object
+  SwaggErrDetailsResp:
+    properties:
+      error:
+        $ref: '#/definitions/ErrorResponse'
+    type: object
+  SwaggOKResp:
+    type: object
+  User:
+    properties:
+      blocked:
+        type: boolean
+      created_at:
+        description: The time that record is created
+        type: string
+      deleted_at:
+        allOf:
+        - $ref: '#/definitions/gorm.DeletedAt'
+        description: DeletedAt *time.Time `json:"deleted_at" sql:"index"`
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        description: ID of the record
+        type: integer
+      last_login:
+        type: string
+      last_name:
+        type: string
+      mobile:
+        type: string
+      role:
+        type: string
+      updated_at:
+        description: The latest time that record is updated
+        type: string
+      username:
+        type: string
+    type: object
+  auth.Credentials:
+    properties:
+      password:
+        example: superadmin123!@#
+        type: string
+      username:
+        example: superadmin
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  auth.RefreshTokenData:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  country.CreationData:
+    properties:
+      code:
+        description: 'example: vn'
+        maxLength: 10
+        minLength: 2
+        type: string
+      name:
+        description: 'example: Vietnam'
+        minLength: 3
+        type: string
+      phone_code:
+        description: 'example: +84'
+        maxLength: 10
+        minLength: 2
+        type: string
+    required:
+    - code
+    - name
+    - phone_code
+    type: object
+  country.ListResp:
+    properties:
+      data:
+        description: 'example: [{"id": 1, "created_at": "2020-01-14T10:03:41Z", "updated_at":
+          "2020-01-14T10:03:41Z", "name": "Singapore", "code": "SG", "phone_code":
+          "+65"}]'
+        items:
+          $ref: '#/definitions/Country'
+        type: array
+      total_count:
+        description: 'example: 1'
+        type: integer
+    type: object
+  country.UpdateData:
+    properties:
+      code:
+        description: 'example: vn'
+        maxLength: 10
+        minLength: 2
+        type: string
+      name:
+        description: 'example: Vietnam'
+        minLength: 3
+        type: string
+      phone_code:
+        description: 'example: +84'
+        maxLength: 10
+        minLength: 2
+        type: string
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  llm.AiTranscriberResp:
+    properties:
+      content:
+        type: string
+    type: object
+  llm.AiTranslatorData:
+    properties:
+      context:
+        type: string
+      input_text:
+        type: string
+      source_lang:
+        enum:
+        - auto
+        - vi
+        - en
+        - th
+        - zh
+        - ja
+        - ko
+        - fr
+        - de
+        - es
+        type: string
+      target_lang:
+        enum:
+        - vi
+        - en
+        - th
+        - zh
+        - ja
+        - ko
+        - fr
+        - de
+        - es
+        type: string
+    required:
+    - input_text
+    - source_lang
+    - target_lang
+    type: object
+  llm.AiTranslatorResp:
+    properties:
+      content:
+        type: string
+    type: object
+  llm.ChatToArticleData:
+    properties:
+      chat_log:
+        type: string
+      target_lang:
+        enum:
+        - en
+        - vi
+        - fr
+        - de
+        - es
+        - ja
+        - ko
+        - zh
+        type: string
+    required:
+    - chat_log
+    - target_lang
+    type: object
+  llm.ChatToArticleResp:
+    properties:
+      content:
+        type: string
+    type: object
+  llm.EmailGeneratorData:
+    properties:
+      language:
+        enum:
+        - vi
+        - en
+        - th
+        - zh
+        - ja
+        - ko
+        type: string
+      tone:
+        enum:
+        - professional
+        - formal
+        - casual
+        - friendly
+        - urgent
+        - apologetic
+        type: string
+      topic:
+        type: string
+    required:
+    - language
+    - tone
+    - topic
+    type: object
+  llm.EmailGeneratorResp:
+    properties:
+      body:
+        type: string
+      subject:
+        type: string
+    type: object
+  llm.MarkdownFormatData:
+    properties:
+      markdown:
+        type: string
+    required:
+    - markdown
+    type: object
+  llm.MarkdownFormatResp:
+    properties:
+      content:
+        type: string
+    type: object
+  llm.OcrResp:
+    properties:
+      content:
+        type: string
+    type: object
+  llm.SmartChatReplyData:
+    properties:
+      mime_type:
+        type: string
+      style:
+        enum:
+        - professional
+        - friendly
+        - flirty
+        - humorous
+        - witty
+        - mimic
+        - empathetic
+        - direct
+        type: string
+      target_lang:
+        enum:
+        - vi
+        - en
+        - th
+        - zh
+        - ja
+        - ko
+        type: string
+      text_input:
+        type: string
+    required:
+    - style
+    - target_lang
+    type: object
+  llm.SmartChatReplyResp:
+    properties:
+      suggestions:
+        items:
+          type: string
+        type: array
+    type: object
+  llm.TextSummarizerData:
+    properties:
+      mode:
+        enum:
+        - shortest
+        - key_points
+        - concise
+        - detailed
+        - professional
+        type: string
+      target_lang:
+        enum:
+        - vi
+        - en
+        - th
+        - zh
+        - ja
+        - ko
+        type: string
+      text:
+        type: string
+    required:
+    - mode
+    - target_lang
+    - text
+    type: object
+  llm.TextSummarizerResp:
+    properties:
+      content:
+        type: string
+    type: object
+  user.CreationData:
+    properties:
+      blocked:
+        type: boolean
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      mobile:
+        type: string
+      password:
+        minLength: 8
+        type: string
+      role:
+        type: string
+      username:
+        minLength: 3
+        type: string
+    required:
+    - email
+    - first_name
+    - last_name
+    - mobile
+    - password
+    - role
+    - username
+    type: object
+  user.ListResp:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/User'
+        type: array
+      total_count:
+        type: integer
+    type: object
+  user.PasswordChangeData:
+    properties:
+      new_password:
+        minLength: 8
+        type: string
+      new_password_confirm:
+        type: string
+      old_password:
+        type: string
+    required:
+    - new_password
+    - new_password_confirm
+    - old_password
+    type: object
+  user.UpdateData:
+    properties:
+      blocked:
+        type: boolean
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      mobile:
+        type: string
+      role:
+        type: string
+    type: object
+info:
+  contact:
+    email: vuduongcalvin@gmail.com
+    name: DuongVu
+    url: http://www.swagger.io/support
+  description: This is a sample server Core server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: GoCore Example API
+  version: "1.0"
+paths:
+  /api/v1/llm/ai-transcriber:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Transcribes an audio/video file using Whisper and translates the
+        result to the target language
+      operationId: llmAiTranscriber
+      parameters:
+      - description: Audio/video file to transcribe
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Input language (auto, vi, en, th, zh, ja, ko, fr, de, es)
+        in: formData
+        name: input_lang
+        required: true
+        type: string
+      - description: Output language (vi, en, th, zh, ja, ko, fr, de, es)
+        in: formData
+        name: output_lang
+        required: true
+        type: string
+      - description: Output format (text, json, srt)
+        in: formData
+        name: format
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/llm.AiTranscriberResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Transcribe and translate audio/video file
+      tags:
+      - llm
+  /api/v1/llm/ai-translator:
+    post:
+      consumes:
+      - application/json
+      description: Translates input text from a source language to a target language
+        using a professional AI translator
+      operationId: llmAiTranslator
+      parameters:
+      - description: AiTranslatorData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/llm.AiTranslatorData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/llm.AiTranslatorResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Translate text
+      tags:
+      - llm
+  /api/v1/llm/chat-to-article:
+    post:
+      consumes:
+      - application/json
+      description: Takes a raw chat log between a User and AI Assistant and converts
+        it into a structured technical article
+      operationId: llmChatToArticle
+      parameters:
+      - description: ChatToArticleData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/llm.ChatToArticleData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/llm.ChatToArticleResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Convert chat log to technical article
+      tags:
+      - llm
+  /api/v1/llm/email-generator:
+    post:
+      consumes:
+      - application/json
+      description: Generates a professional email based on topic, tone, and target
+        language
+      operationId: llmEmailGenerator
+      parameters:
+      - description: EmailGeneratorData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/llm.EmailGeneratorData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/llm.EmailGeneratorResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Generate professional email
+      tags:
+      - llm
+  /api/v1/llm/markdown-format:
+    post:
+      consumes:
+      - application/json
+      description: Reformats raw Markdown text following CommonMark / GitHub Flavored
+        Markdown best practices
+      operationId: llmMarkdownFormat
+      parameters:
+      - description: MarkdownFormatData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/llm.MarkdownFormatData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/llm.MarkdownFormatResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Format raw Markdown text
+      tags:
+      - llm
+  /api/v1/llm/ocr:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Extracts text from an image using a vision-capable LLM
+      operationId: llmOcr
+      parameters:
+      - description: Image file (jpeg, png, gif, webp)
+        in: formData
+        name: image
+        required: true
+        type: file
+      - description: Output format (text, markdown, html, json)
+        in: formData
+        name: format
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/llm.OcrResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Extract text from image (OCR)
+      tags:
+      - llm
+  /api/v1/llm/smart-chat-reply:
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Analyzes a conversation (text or screenshot) and returns 5 reply
+        suggestions
+      operationId: llmSmartChatReply
+      parameters:
+      - description: SmartChatReplyData (JSON for text input)
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/llm.SmartChatReplyData'
+      - description: Chat screenshot (multipart)
+        in: formData
+        name: image
+        type: file
+      - description: Target language (vi, en, th, zh, ja, ko)
+        in: formData
+        name: target_lang
+        type: string
+      - description: Reply style (professional, friendly, flirty, humorous, witty,
+          mimic, empathetic, direct)
+        in: formData
+        name: style
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/llm.SmartChatReplyResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Generate smart chat reply suggestions
+      tags:
+      - llm
+  /api/v1/llm/text-summarizer:
+    post:
+      consumes:
+      - application/json
+      description: Summarizes and translates text based on the selected mode and target
+        language
+      operationId: llmTextSummarizer
+      parameters:
+      - description: TextSummarizerData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/llm.TextSummarizerData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/llm.TextSummarizerResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Summarize and translate text
+      tags:
+      - llm
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Logs in user by username and password
+      operationId: authLogin
+      parameters:
+      - description: Credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.Credentials'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/AuthToken'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      summary: Logs in user by username and password
+      tags:
+      - auth
+  /refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: Refresh access token
+      operationId: authRefreshToken
+      parameters:
+      - description: RefreshTokenData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.RefreshTokenData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/AuthToken'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      summary: Refresh access token
+      tags:
+      - auth
+  /v1/countries:
+    get:
+      consumes:
+      - application/json
+      description: Get list country
+      operationId: countriesList
+      parameters:
+      - description: 'JSON string of filter. E.g: {"field_name":"value"}'
+        in: query
+        name: f
+        type: string
+      - default: 25
+        description: Number of records per page
+        in: query
+        name: l
+        type: integer
+      - default: ASC
+        description: Sort direction order must be one of ASC, DESC
+        enum:
+        - ASC
+        - DESC
+        in: query
+        name: o
+        type: string
+      - default: 1
+        description: Current page number
+        in: query
+        name: p
+        type: integer
+      - description: Field name for sorting
+        in: query
+        name: s
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/country.ListResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Get list country
+      tags:
+      - countries
+    post:
+      consumes:
+      - application/json
+      description: Creates new country
+      operationId: countriesCreate
+      parameters:
+      - description: CreationData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/country.CreationData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Country'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Creates new country
+      tags:
+      - countries
+  /v1/countries/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an country
+      operationId: countriesDelete
+      parameters:
+      - description: Country ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/SwaggOKResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Deletes an country
+      tags:
+      - countries
+    get:
+      consumes:
+      - application/json
+      description: Returns a single country
+      operationId: countriesView
+      parameters:
+      - description: Country ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Country'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Returns a single country
+      tags:
+      - countries
+    patch:
+      consumes:
+      - application/json
+      description: Updates country information
+      operationId: countriesUpdate
+      parameters:
+      - description: Country ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: UpdateData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/country.UpdateData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Country'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Updates country information
+      tags:
+      - countries
+  /v1/users:
+    get:
+      consumes:
+      - application/json
+      description: Get list user
+      operationId: usersList
+      parameters:
+      - description: 'JSON string of filter. E.g: {"field_name":"value"}'
+        in: query
+        name: f
+        type: string
+      - default: 25
+        description: Number of records per page
+        in: query
+        name: l
+        type: integer
+      - default: ASC
+        description: Sort direction order must be one of ASC, DESC
+        enum:
+        - ASC
+        - DESC
+        in: query
+        name: o
+        type: string
+      - default: 1
+        description: Current page number
+        in: query
+        name: p
+        type: integer
+      - description: Field name for sorting
+        in: query
+        name: s
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.ListResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Get list user
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: The new user
+      operationId: usersCreate
+      parameters:
+      - description: CreationData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.CreationData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Creates new user
+      tags:
+      - users
+  /v1/users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an user
+      operationId: usersDelete
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/SwaggOKResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Deletes an user
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: Returns a single user
+      operationId: usersView
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Returns a single user
+      tags:
+      - users
+    patch:
+      consumes:
+      - application/json
+      description: Updates user information
+      operationId: usersUpdate
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: UpdateData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.UpdateData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Updates user information
+      tags:
+      - users
+  /v1/users/me:
+    get:
+      consumes:
+      - application/json
+      description: Returns authenticated user
+      operationId: usersMe
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Returns authenticated user
+      tags:
+      - users
+  /v1/users/password:
+    get:
+      consumes:
+      - application/json
+      description: Changes authenticated user password
+      operationId: usersChangePwd
+      parameters:
+      - description: PasswordChangeData
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.PasswordChangeData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/SwaggOKResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/SwaggErrDetailsResp'
+      security:
+      - BearerToken: []
+      summary: Changes authenticated user password
+      tags:
+      - users
+schemes:
+- http
+- https
+securityDefinitions:
+  BearerToken:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
