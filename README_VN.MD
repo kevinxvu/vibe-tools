@@ -1,300 +1,218 @@
+<div align="center">
+
 # VibeTools
 
-Một bộ công cụ cho developer, dành cho những ngày bạn không muốn mở 17 tab chỉ để format JSON, decode JWT, rồi nhờ AI tóm tắt một bức tường chữ.
+**Hộp công cụ all-in-one cho developer. AI utilities và dev tools kinh điển, gói gọn trong một app tự host.**
 
-VibeTools gom backend Go, frontend SPA nhúng sẵn, và rất nhiều tool hữu ích vào một chỗ.
+[![Go](https://img.shields.io/badge/Go-1.24+-00ADD8?style=flat&logo=go)](https://go.dev)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=flat&logo=docker)](https://www.docker.com)
 
-English version: [README.MD](README.MD)
+[Bắt Đầu](#bắt-đầu) · [AI Tools](#ai-tools) · [Dev Tools](#dev-tools) · [Tự Host](#tự-host) · [Docs](docs/TECHNICAL.md)
 
----
-
-## VibeTools Là Gì?
-
-VibeTools là dự án full-stack tập trung vào hai việc:
-
-- Xử lý các tác vụ dev hằng ngày nhanh gọn.
-- Tận dụng AI theo hướng thực dụng, đỡ nói đạo lý, tăng năng suất.
-
-Bạn có cả dev tools truyền thống lẫn AI tools trong cùng một ứng dụng, chạy trên kiến trúc Go sạch sẽ.
+</div>
 
 ---
 
-## Tính Năng
+VibeTools thay thế 17 tab trình duyệt bạn mở mỗi ngày — JSON formatter, JWT decoder, AI summarizer, HTTP client, v.v. — bằng một app duy nhất tự host. Không tài khoản, không telemetry, không cần internet sau khi cài xong.
 
-### AI Tools
+> 🇬🇧 English readme: [README.MD](README.MD)
 
-- Chat to Article: Biến chat log thành bài viết kỹ thuật có cấu trúc.
-- Text Summarizer: Tóm tắt nội dung dài theo nhiều phong cách.
-- Email Generator: Soạn email với nhiều giọng điệu.
-- Smart Chat Reply: Gợi ý trả lời từ hội thoại text hoặc ảnh chụp.
-- AI Transcriber: Chuyển audio/video thành `text`, `json`, hoặc `srt`.
-- AI Translator: Dịch có ngữ cảnh, kiểm soát chặt input/output.
-- OCR Tool: Trích xuất chữ từ ảnh.
-- Markdown Format: Dọn markdown lộn xộn thành bản dễ đọc.
-- Markdown Parser: Chuyển đổi HTML, plain text, URL website và file (DOC, XLSX, PDF) thành Markdown sạch.
+## Tính Năng Nổi Bật
 
-### Dev Tools
-
-- HTTP Client: Gửi và kiểm tra request REST (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
-- JSON Formatter: Format đẹp, minify và xem cấu trúc JSON.
-- JWT Tool: Decode và encode JWT (`HS256`).
-- Markdown Viewer: Soạn thảo + preview, cuộn đồng bộ.
-- HTML Viewer: Edit, preview, tree view, beautify.
-- XML Formatter: Format, minify, tree view cho XML.
-- String Hash: MD5, SHA, Keccak.
-- Bcrypt Tool: Tạo và kiểm tra bcrypt hash.
-- String Length Calculator: Thống kê ký tự/từ, đếm theo token.
-- Multiline Converter: Làm sạch và chuyển đổi văn bản nhiều dòng.
-- Text Case Converter: Upper, lower, camel, snake, slug, v.v.
-- String Escaper: Escape/unescape cho HTML, XML, JS, JSON, CSV, SQL.
-- Text Replacer: Thay thế theo template kiểu `{{var}}`.
-- HTML Encoder: Encode/decode HTML entity.
-- Base64 Converter: Encode/decode text và nội dung file.
-- URL Converter: URL encode/decode.
-- Password Generator: Tạo mật khẩu mạnh + gợi ý độ mạnh.
-- UUID Generator: Tạo và phân tích UUID (`v4`, `v7`).
-- Snowflake Generator: Tạo và phân tích Snowflake ID.
-- Timestamp Converter: Chuyển đổi Unix timestamp và RFC3339.
-- Log Analyzer: Xem và phân tích log JSON có cấu trúc (SQL, API) dạng bảng.
+- **29 tools** thuộc hai nhóm AI và developer
+- **AI tools** hỗ trợ OpenAI, Google Gemini, và Vertex AI
+- **Dev tools** chạy hoàn toàn trên trình duyệt — dữ liệu không rời máy bạn
+- **Single binary** — Go backend với React SPA nhúng bên trong
+- **Tự host trong vài phút** bằng Docker hoặc từ source
+- **Giao diện đa ngôn ngữ** — Tiếng Anh và Tiếng Việt
 
 ---
 
-## Tech Stack
+## Bắt Đầu
 
-| Lớp | Công nghệ |
+### Docker
+
+Cách nhanh nhất để chạy:
+
+```sh
+docker run -p 8080:8080 ghcr.io/kevinxvu/vibe-tools:latest
+```
+
+Mở **http://localhost:8080** và đăng nhập bằng tài khoản mặc định.
+
+### Docker Compose
+
+```sh
+git clone <repo-url>
+cd vibe-tools
+
+# Sao chép và chỉnh sửa file môi trường
+cp .env.example .env
+
+docker compose up -d
+```
+
+### Từ Source
+
+**Yêu cầu:** Go 1.24+, Docker, [`air`](https://github.com/air-verse/air), [`wire`](https://github.com/google/wire), [`swag`](https://github.com/swaggo/swag)
+
+```sh
+git clone <repo-url>
+cd vibe-tools
+
+make provision   # Khởi động database và chạy migration
+make dev         # Chạy server với hot reload
+```
+
+**Tài khoản mặc định**
+
+| Username | Password |
 | --- | --- |
-| Backend Framework | Echo v4 |
-| ORM | GORM |
-| Database | PostgreSQL / MySQL / MariaDB / SQLite |
-| Auth | JWT (HS256 / RS256) |
-| Migration | Goose (SQL-based) |
-| Dependency Injection | Google Wire |
-| Logging | Uber Zap (structured JSON) |
-| API Docs | Swaggo (Swagger / OpenAPI) |
-| AI Integration | OpenAI Go SDK (chat + audio) |
-| Cloud Integrations | AWS SES, S3, SNS, SQS |
-| Frontend Delivery | Embedded SPA bằng `//go:embed` |
+| `superadmin` | `superadmin123!@#` |
+
+> **Lưu ý:** Đổi thông tin đăng nhập trước khi expose app ra mạng.
 
 ---
 
-## Cấu Trúc Dự Án
+## AI Tools
 
-```text
-.
-├── cmd/
-│   ├── api/                # Entry point API
-│   └── migration/          # CLI migration
-├── config/                 # Struct cấu hình runtime
-├── fontend/
-│   ├── dist/               # Bundle frontend đã build
-│   └── static.go           # Embedded FS cho frontend assets
-├── internal/
-│   ├── api/
-│   │   ├── docs/           # Kết quả Swagger
-│   │   ├── handler/        # HTTP handlers
-│   │   ├── router/         # Đăng ký routes
-│   │   └── service/        # Business logic
-│   ├── di/                 # Wire providers + generated wiring
-│   ├── migrations/         # SQL migration files
-│   ├── model/              # DB models
-│   └── repository/         # Data access layer
-└── pkg/
-    ├── aws/                # AWS wrappers
-    ├── database/           # DB utilities cơ bản
-    ├── logging/            # Logger utilities
-    ├── openai/             # OpenAI wrappers
-    ├── server/             # Echo server, middleware, errors
-    └── util/               # Shared helpers
+AI tools gọi tới LLM provider bạn đã cấu hình. Xem [Cấu Hình AI](#cấu-hình-ai) để thiết lập.
+
+| Tool | Mô tả |
+| --- | --- |
+| **Chat to Article** | Biến chat log hoặc thread Slack thành bài viết kỹ thuật có cấu trúc. |
+| **Text Summarizer** | Tóm tắt nội dung dài theo nhiều phong cách — bullets, đoạn văn, TLDR, executive. |
+| **Email Generator** | Soạn email chuyên nghiệp với nhiều giọng điệu từ một brief ngắn. |
+| **Smart Chat Reply** | Gợi ý câu trả lời từ chuỗi hội thoại hoặc ảnh chụp màn hình. |
+| **AI Transcriber** | Transcript audio hoặc video sang `text`, `json`, hoặc `srt`. |
+| **AI Translator** | Dịch có nhận thức ngữ cảnh với ngôn ngữ nguồn/đích và giọng điệu tùy chỉnh. |
+| **OCR Tool** | Trích xuất văn bản từ ảnh — screenshot, tài liệu scan, ảnh chụp bảng trắng. |
+| **Markdown Format** | Dọn markdown lộn xộn thành phiên bản sạch và nhất quán. |
+| **Markdown Parser** | Chuyển đổi HTML, plain text, URL, hoặc file (DOC, XLSX, PDF) sang Markdown sạch. |
+
+---
+
+## Dev Tools
+
+Tất cả dev tools chạy cục bộ trên trình duyệt. Không có dữ liệu nào được gửi đến server.
+
+| Tool | Mô tả |
+| --- | --- |
+| **HTTP Client** | Gửi REST request và kiểm tra response, headers, status codes. |
+| **JSON Formatter** | Pretty-print, minify, validate và khám phá JSON dạng cây. |
+| **JWT Tool** | Decode JWT để xem claims, hoặc encode token mới với secret và claims tùy chỉnh. |
+| **Markdown Viewer** | Editor và preview cạnh nhau với cuộn đồng bộ. |
+| **HTML Viewer** | Edit và preview HTML trực tiếp với tree view và beautify. |
+| **XML Formatter** | Format, minify và khám phá XML dạng cây tương tác. |
+| **String Hash** | Tính hash MD5, SHA-1, SHA-256, SHA-512 và Keccak. |
+| **Bcrypt Tool** | Hash mật khẩu bằng bcrypt, hoặc xác minh mật khẩu với hash. |
+| **String Length Calculator** | Đếm ký tự, từ, dòng và token. Hữu ích để kiểm tra kích thước LLM prompt. |
+| **Multiline Converter** | Nối, quote, wrap hoặc biến đổi văn bản nhiều dòng chỉ với một click. |
+| **Text Case Converter** | Chuyển đổi giữa camelCase, PascalCase, snake_case, kebab-case, slug và nhiều hơn. |
+| **String Escaper** | Escape và unescape cho HTML, XML, JS, JSON, CSV và SQL. |
+| **Text Replacer** | Thay thế text theo template với placeholder `{{biến}}`. |
+| **HTML Encoder** | Encode và decode HTML entities. |
+| **Base64 Converter** | Encode và decode Base64 — text hoặc nội dung file. |
+| **URL Converter** | URL-encode và decode chuỗi và query parameters. |
+| **Password Generator** | Tạo mật khẩu mạnh với bộ ký tự và độ dài tùy chỉnh. |
+| **UUID Generator** | Tạo UUID `v4` và `v7`, kiểm tra các trường của UUID bất kỳ. |
+| **Snowflake Generator** | Tạo Snowflake ID và giải mã timestamp cùng machine ID nhúng bên trong. |
+| **Timestamp Converter** | Chuyển đổi giữa Unix, milliseconds và datetime RFC3339. |
+| **Log Analyzer** | Xem và lọc structured JSON log (SQL, API) dạng bảng gọn gàng. |
+
+---
+
+## Tự Host
+
+### `.env` Tối Thiểu
+
+```env
+STAGE=production
+PORT=8080
+JWT_SECRET=thay-bằng-chuỗi-ngẫu-nhiên-dài
+
+DB_TYPE=mysql
+DB_DSN=user:password@tcp(db-host:3306)/vibetools?charset=utf8mb4&parseTime=True&loc=Local
 ```
 
----
+Xem toàn bộ tùy chọn cấu hình tại [Configuration Reference](docs/TECHNICAL.md#configuration-reference).
 
-## Tổng Quan API
+### Cấu Hình AI
 
-Public endpoints:
+<details>
+<summary><strong>OpenAI</strong></summary>
 
-- `POST /login`
-- `POST /refresh-token`
-- `GET /health`
-
-Protected endpoints (base: `/api/v1`):
-
-- Users: `/users`, `/users/:id`, `/users/me`, `/users/me/password`
-- Countries: `/countries`, `/countries/:id`
-- LLM tools:
-  - `/llm/chat-to-article`
-  - `/llm/ai-transcriber`
-  - `/llm/ai-translator`
-  - `/llm/email-generator`
-  - `/llm/markdown-format`
-  - `/llm/ocr`
-  - `/llm/smart-chat-reply`
-  - `/llm/text-summarizer`
-
----
-
-## Bắt Đầu Nhanh
-
-### Yêu Cầu Trước Khi Chạy
-
-- Go `1.24+`
-- Docker và Docker Compose
-- `air` để hot reload
-- `wire` để generate dependency injection
-- `swag` để generate Swagger
-
-### Thiết Lập Lần Đầu
-
-```bash
-make provision
-make dev
+```env
+LLM_PROVIDER=openai
+OPENAI_API_KEY=sk-...
+LLM_TEXT_MODEL=gpt-4o
+LLM_AUDIO_MODEL=whisper-1
 ```
 
-App URL: `http://localhost:8080`
+</details>
 
-Swagger UI: `http://localhost:8080/docs/index.html`
+<details>
+<summary><strong>Google Gemini (Developer API)</strong></summary>
 
-### Tài Khoản Mặc Định
-
-```json
-{
-  "username": "superadmin",
-  "password": "superadmin123!@#"
-}
+```env
+LLM_PROVIDER=genai
+GENAI_API_KEY=AIza...
+GENAI_BACKEND=1
+LLM_TEXT_MODEL=gemini-2.0-flash
 ```
 
-Mật khẩu nhìn rất "quyết tâm", nhưng production thì nhớ đổi cho bình yên cuộc đời.
+</details>
+
+<details>
+<summary><strong>Google Vertex AI</strong></summary>
+
+```env
+LLM_PROVIDER=genai
+GENAI_BACKEND=2
+GENAI_PROJECT=my-gcp-project
+GENAI_LOCATION=us-central1
+GENAI_CREDENTIALS_FILE=/path/to/service-account.json
+LLM_TEXT_MODEL=gemini-2.0-flash
+```
+
+</details>
+
+<details>
+<summary><strong>Azure OpenAI / Endpoint tương thích OpenAI</strong></summary>
+
+```env
+LLM_PROVIDER=openai
+OPENAI_API_KEY=<your-key>
+OPENAI_BASE_URL=https://your-endpoint/openai/deployments/your-model
+LLM_TEXT_MODEL=your-deployment-name
+```
+
+</details>
 
 ---
 
-## Lệnh Phát Triển
+## Tài Liệu
 
-```bash
-make dev                  # Chạy app với hot reload
-make specs                # Tạo swagger specs
-make wire                 # Generate lại Wire DI
-make test.cover           # Chạy test và mở coverage
-
-make migrate              # Chạy migration còn pending
-make migrate.status       # Xem trạng thái migration
-make migrate.version      # Xem version migration hiện tại
-make migrate.undo         # Undo migration gần nhất
-make migrate.create name=add_feature
-make migrate.reset        # Rollback toàn bộ migration
-make migrate.redo         # Chạy lại migration gần nhất
-
-make build.linux          # Build cho Linux
-make build.windows        # Build cho Windows
-make build.arm            # Build cho ARM
-make remove               # Dừng server và xóa Docker resources
-make clean                # Dọn file build
-
-make docker.build         # Build Docker image
-make docker.run           # Chạy container
-make docker.logs          # Xem logs
-make docker.stop          # Dừng và xóa container
-make docker.export        # Export image ra tar
-
-# Frontend (chạy từ thư mục gốc dự án)
-make fe.install           # Cài dependencies frontend
-make fe.dev               # Dev server frontend → http://localhost:5173
-make fe.build             # Build frontend (nhúng vào binary)
-make fe.build-local       # Build frontend với API URL local
-make fe.build-prod        # Build frontend với API URL production
-make fe.preview           # Preview bản build production frontend
-```
+| Tài liệu | Mô tả |
+| --- | --- |
+| [docs/TECHNICAL.md](docs/TECHNICAL.md) | Kiến trúc, API reference, hướng dẫn phát triển, triển khai |
 
 ---
 
-## Ghi Chú Kiến Trúc
+## Đóng Góp
 
-- Luồng chính: `Service -> Handler -> Router`.
-- Dependency graph được generate ở compile-time bằng Wire.
-- Frontend được nhúng vào binary từ `fontend/dist` và serve theo kiểu SPA fallback.
-- Route `/*` của frontend được đăng ký sau cùng để không đè API routes.
+Mọi đóng góp đều được chào đón. Vui lòng mở issue để thảo luận trước khi gửi pull request.
 
----
+1. Fork repository
+2. Tạo feature branch: `git checkout -b feat/your-feature`
+3. Commit thay đổi
+4. Mở pull request
 
-## Cấu Hình
-
-Thứ tự ưu tiên biến môi trường:
-
-1. OS environment variables
-2. `.env.local`
-3. `.env`
-
-### Server
-
-| Biến | Mặc định | Ví dụ | Mô tả |
-| --- | --- | --- | --- |
-| `STAGE` | — | `development` | Môi trường chạy. Ảnh hưởng đến logging và hành vi ứng dụng. Dùng `production` khi deploy thật. |
-| `HOST` | — | `0.0.0.0` | Địa chỉ host mà server lắng nghe. |
-| `PORT` | — | `8080` | Cổng TCP của HTTP server. |
-| `READ_TIMEOUT` | — | `10` | Timeout đọc HTTP, tính bằng giây. |
-| `WRITE_TIMEOUT` | — | `5` | Timeout ghi HTTP, tính bằng giây. |
-| `ALLOW_ORIGINS` | — | `https://example.com` | Danh sách origin cho phép CORS, phân cách bằng dấu phẩy. Chỉ dùng `*` trong môi trường phát triển. |
-| `DEBUG` | `false` | `true` | Bật logging debug chi tiết. |
-| `DB_LOG` | `false` | `true` | Bật logging câu lệnh SQL của GORM. |
-| `APP_ID` | `vibetools` | `vibetools` | Định danh ứng dụng dùng nội bộ. |
-
-### API Docs
-
-| Biến | Mặc định | Ví dụ | Mô tả |
-| --- | --- | --- | --- |
-| `IS_ENABLE_API_DOCS` | `false` | `true` | Bật Swagger UI tại `/docs/index.html`. Nên tắt khi production. |
-| `API_DOCS_PATH` | — | `docs` | Tiền tố đường dẫn cho các file Swagger. |
-
-### LLM (Tính năng AI)
-
-| Biến | Mặc định | Ví dụ | Mô tả |
-| --- | --- | --- | --- |
-| `LLM_PROVIDER` | `openai` | `openai` | Provider LLM đang dùng. `openai` dùng API tương thích OpenAI; `genai` dùng Google GenAI / Vertex AI. |
-| `LLM_TEXT_MODEL` | — | `gpt-4o` | Tên model cho chat và sinh văn bản. |
-| `LLM_AUDIO_MODEL` | — | `whisper-1` | Tên model cho nhận dạng giọng nói (transcription). |
-| `LLM_TIMEOUT` | `300` | `120` | Timeout tính bằng giây cho mỗi request LLM. |
-| `LLM_MAX_RETRIES` | `0` | `2` | Số lần tự động thử lại khi LLM trả lỗi tạm thời. |
-| `LLM_MAX_INPUT_TOKENS` | `0` | `12000` | Giới hạn token đầu vào mỗi request. `0` = không giới hạn. |
-| `LLM_MAX_OUTPUT_TOKENS` | `0` | `4096` | Giới hạn token đầu ra mỗi request. `0` = không giới hạn. |
-| `LLM_LIMIT_TOKEN_USAGE` | `0` | `10000000` | Ngân sách token tích lũy cho tất cả request. `0` = không giới hạn. |
-
-### OpenAI Provider
-
-| Biến | Mặc định | Ví dụ | Mô tả |
-| --- | --- | --- | --- |
-| `OPENAI_API_KEY` | — | `sk-...` | API key của OpenAI hoặc dịch vụ tương thích. Bắt buộc khi `LLM_PROVIDER=openai`. |
-| `OPENAI_BASE_URL` | — | `https://api.openai.com/v1` | Ghi đè base URL. Dùng cho Azure OpenAI, proxy nội bộ, hoặc endpoint tương thích Gemini (`https://generativelanguage.googleapis.com/v1beta/openai/`). |
-
-### Google GenAI Provider
-
-| Biến | Mặc định | Ví dụ | Mô tả |
-| --- | --- | --- | --- |
-| `GENAI_API_KEY` | — | `AIza...` | API key cho Gemini Developer API. Dùng khi `GENAI_BACKEND=1`. |
-| `GENAI_BACKEND` | `2` | `1` | Chọn backend: `0` = tự phát hiện, `1` = Gemini Developer API, `2` = Vertex AI. |
-| `GENAI_PROJECT` | — | `my-gcp-project` | Project ID trên GCP. Bắt buộc khi dùng Vertex AI (`GENAI_BACKEND=2`). |
-| `GENAI_LOCATION` | — | `us-central1` | Region GCP cho Vertex AI. |
-| `GENAI_CREDENTIALS_FILE` | — | `/secrets/sa.json` | Đường dẫn đến file JSON service account của GCP. Bỏ trống để dùng Application Default Credentials. |
-
----
-
-## Docker
-
-Build và chạy:
-
-```bash
-make docker.build
-make docker.run
-```
-
-Health endpoint:
-
-```bash
-GET /health
-```
-
-Script khởi động container sẽ chạy migration trước khi mở traffic.
+Xem [docs/TECHNICAL.md](docs/TECHNICAL.md) để biết chi tiết kiến trúc và cách thiết lập môi trường phát triển.
 
 ---
 
 ## License
 
-MIT
+[MIT](LICENSE)

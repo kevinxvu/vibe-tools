@@ -1,23 +1,20 @@
-# Stage 1: Build stage
+# Stage 1: Go build
 FROM golang:1.24-alpine AS builder
-RUN apk add --no-cache git make gcc musl-dev
+RUN apk add --no-cache git
 WORKDIR /app
 COPY go.mod go.sum ./
-RUN go mod download
+RUN --mount=type=cache,target=/root/go/pkg/mod go mod download
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /app/server ./cmd/api
-# Migration disabled temporarily - uncomment when database is configured
-# RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /app/migrate ./cmd/migration
+RUN --mount=type=cache,target=/root/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 go build -ldflags="-w -s" -o /app/server ./cmd/api
 
-# Stage 2: Runtime stage
+# Stage 2: Runtime
 FROM alpine:3.19
 RUN apk --no-cache add ca-certificates tzdata wget
 WORKDIR /app
 COPY --from=builder /app/server /app/server
-# Migration disabled temporarily - uncomment when database is configured
-# COPY --from=builder /app/migrate /app/migrate
-# COPY --from=builder /app/internal/migrations /app/internal/migrations
 COPY --from=builder /app/.env /app/.env
 COPY --from=builder /app/scripts/docker-entrypoint.sh /app/docker-entrypoint.sh
 RUN chmod +x /app/docker-entrypoint.sh

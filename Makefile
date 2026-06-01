@@ -98,14 +98,31 @@ specs: ## Generate swagger specs
 	swag fmt -d ./internal/api
 	swag init --parseInternal --parseDependency --parseDepth 1 -g /cmd/api/main.go -o ./internal/api/docs
 
+# GHCR configuration — override via: make docker.push GHCR_USER=yourname
+GHCR_USER   ?= kevinxvu
+DOCKER_IMAGE ?= vibe-tools
+DOCKER_TAG   ?= latest
+GHCR_FULL_TAG = ghcr.io/$(GHCR_USER)/$(DOCKER_IMAGE):$(DOCKER_TAG)
+
 docker.build: ## Build Docker image (backend)
-	docker build -t vibetools:latest .
+	docker build -t $(GHCR_FULL_TAG) .
+
+docker.push: ## Build and push image to GHCR (usage: make docker.push GHCR_USER=yourname)
+	docker build -t $(GHCR_FULL_TAG) .
+	docker push $(GHCR_FULL_TAG)
+	@echo "✅ Pushed: $(GHCR_FULL_TAG)"
+
+docker.buildx: ## Build multi-platform image and push to GHCR (amd64 + arm64)
+	docker buildx build --platform linux/amd64,linux/arm64 \
+		-t $(GHCR_FULL_TAG) \
+		--push .
+	@echo "✅ Multi-platform image pushed: $(GHCR_FULL_TAG)"
 
 docker.run: ## Run Docker container (requires running database)
 	docker run -d \
 		--name vibetools \
 		-p 8080:8080 \
-		vibetools:latest
+		$(GHCR_FULL_TAG)
 
 docker.stop: ## Stop Docker container (backend)
 	docker stop vibetools || true
@@ -115,7 +132,7 @@ docker.logs: ## View Docker container logs (backend)
 	docker logs -f vibetools
 
 docker.export: ## Export Docker image to tar file (backend)
-	docker save vibetools:latest -o vibetools-latest.tar
+	docker save $(GHCR_FULL_TAG) -o vibetools-latest.tar
 
 # ============================================================
 # Frontend (React / Vite) — targets prefixed with fe.

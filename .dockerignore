@@ -19,6 +19,7 @@ coverage*.out
 server
 tmp/
 logs/
+fontend/node_modules
 
 # Environment files (will copy .env explicitly)
 .env.local
