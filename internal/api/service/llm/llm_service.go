@@ -17,6 +17,9 @@ import (
 // New creates new llm application service with the given Provider.
 // The active provider is selected at startup via llm.Factory.
 func New(p llmpkg.Provider) *LLMService {
+	if p == nil {
+		p = llmpkg.NewDisabledProvider("")
+	}
 	return &LLMService{llm: p}
 }
 

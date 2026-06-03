@@ -23,7 +23,7 @@ export const Login: React.FC = () => {
       setTimeout(() => {
         loginManual({
           uid: 'admin-local',
-          email: 'admin@devtools.local',
+          email: 'admin@vibetools.local',
           displayName: 'Administrator',
         });
         navigate('/');

@@ -1,9 +1,9 @@
 /**
- * Local Storage Utility for DevTools
+ * Local Storage Utility for VibeTools
  * Provides common functions to save and restore tool state
  */
 
-const STORAGE_PREFIX = 'devtools_';
+const STORAGE_PREFIX = 'vibetools_';
 const STORAGE_VERSION = 'v1';
 
 export interface ToolState {

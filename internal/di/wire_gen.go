@@ -15,7 +15,6 @@ import (
 	"github.com/kevinxvu/vibe-tools/pkg/llm/genai"
 	"github.com/kevinxvu/vibe-tools/pkg/llm/openai"
 	"github.com/kevinxvu/vibe-tools/pkg/server"
-	"github.com/kevinxvu/vibe-tools/pkg/server/middleware/jwt"
 	"github.com/labstack/echo/v4"
 	genai2 "google.golang.org/genai"
 )
@@ -29,14 +28,13 @@ func InitializeApplication() (*Application, error) {
 		return nil, err
 	}
 	echo := ProvideServer(configuration)
-	service := ProvideJWT(configuration)
-	auth := ProvideAuth(service)
-	openaiService := ProvideOpenAIService(configuration)
+	auth := ProvideAuth()
+	service := ProvideOpenAIService(configuration)
 	genaiService, err := ProvideGenAIService(configuration)
 	if err != nil {
 		return nil, err
 	}
-	provider, err := ProvideLLMFactory(configuration, openaiService, genaiService)
+	provider, err := ProvideLLMFactory(configuration, service, genaiService)
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +42,6 @@ func InitializeApplication() (*Application, error) {
 	application := &Application{
 		Config: configuration,
 		Server: echo,
-		JWT:    service,
 		Auth:   auth,
 		LLMSvc: llmService,
 	}
@@ -58,14 +55,15 @@ func ProvideConfig() (*config.Configuration, error) {
 	return config.Load()
 }
 
-// ProvideJWT creates JWT service
-func ProvideJWT(cfg *config.Configuration) *jwt.Service {
-	return jwt.New(cfg.JwtAlgorithm, cfg.JwtSecret, cfg.JwtDuration)
+type publicAuth struct{}
+
+func (publicAuth) User(echo.Context) *model.AuthUser {
+	return nil
 }
 
-// ProvideAuth creates Auth interface from JWT service
-func ProvideAuth(jwtSvc *jwt.Service) model.Auth {
-	return jwtSvc
+// ProvideAuth creates a no-op Auth implementation for public routes.
+func ProvideAuth() model.Auth {
+	return publicAuth{}
 }
 
 // ProvideLLMFactory builds a Factory with all registered providers and returns
@@ -78,7 +76,12 @@ func ProvideLLMFactory(cfg *config.Configuration, openAI *openai.Service, genAI 
 	if genAI != nil {
 		f.Register(llm.ProviderGenAI, genAI)
 	}
-	return f.Create(llm.ProviderType(cfg.LLMProvider))
+	providerType := llm.ProviderType(cfg.LLMProvider)
+	p, err := f.Create(providerType)
+	if err != nil {
+		return llm.NewDisabledProvider(providerType), nil
+	}
+	return p, nil
 }
 
 // ProvideLLMService creates llm service using the active Provider from the factory.
@@ -142,7 +145,6 @@ type Application struct {
 	Config *config.Configuration
 	// DB         *gorm.DB           // disabled - no database
 	Server *echo.Echo
-	JWT    *jwt.Service
 	Auth   model.Auth
 	// AuthSvc    authSvc.Service    // disabled - no database
 	// UserSvc    userSvc.Service    // disabled - no database

@@ -20,7 +20,6 @@ import (
 	genaiPkg "github.com/kevinxvu/vibe-tools/pkg/llm/genai"
 	openaiPkg "github.com/kevinxvu/vibe-tools/pkg/llm/openai"
 	"github.com/kevinxvu/vibe-tools/pkg/server"
-	"github.com/kevinxvu/vibe-tools/pkg/server/middleware/jwt"
 	"github.com/labstack/echo/v4"
 	googlegenai "google.golang.org/genai"
 	// "gorm.io/gorm"                                                           // disabled - no database
@@ -49,14 +48,15 @@ func ProvideConfig() (*config.Configuration, error) {
 // return repository.NewCountryRepository()
 // }
 
-// ProvideJWT creates JWT service
-func ProvideJWT(cfg *config.Configuration) *jwt.Service {
-	return jwt.New(cfg.JwtAlgorithm, cfg.JwtSecret, cfg.JwtDuration)
+type publicAuth struct{}
+
+func (publicAuth) User(echo.Context) *model.AuthUser {
+	return nil
 }
 
-// ProvideAuth creates Auth interface from JWT service
-func ProvideAuth(jwtSvc *jwt.Service) model.Auth {
-	return jwtSvc
+// ProvideAuth creates a no-op Auth implementation for public routes.
+func ProvideAuth() model.Auth {
+	return publicAuth{}
 }
 
 // ProvideAuthJWT creates auth.JWT interface from JWT service
@@ -93,7 +93,12 @@ func ProvideLLMFactory(cfg *config.Configuration, openAI *openaiPkg.Service, gen
 	if genAI != nil {
 		f.Register(llmpkg.ProviderGenAI, genAI)
 	}
-	return f.Create(llmpkg.ProviderType(cfg.LLMProvider))
+	providerType := llmpkg.ProviderType(cfg.LLMProvider)
+	p, err := f.Create(providerType)
+	if err != nil {
+		return llmpkg.NewDisabledProvider(providerType), nil
+	}
+	return p, nil
 }
 
 // ProvideLLMService creates llm service using the active Provider from the factory.
@@ -157,7 +162,6 @@ type Application struct {
 	Config *config.Configuration
 	// DB         *gorm.DB           // disabled - no database
 	Server *echo.Echo
-	JWT    *jwt.Service
 	Auth   model.Auth
 	// AuthSvc    authSvc.Service    // disabled - no database
 	// UserSvc    userSvc.Service    // disabled - no database
@@ -172,7 +176,6 @@ func InitializeApplication() (*Application, error) {
 		// ProvideDB,             // disabled - no database
 		// ProvideUserDB,         // disabled - no database
 		// ProvideCountryDB,      // disabled - no database
-		ProvideJWT,
 		ProvideAuth,
 		// ProvideAuthJWT,        // disabled - no database
 		// ProvideAuthService,    // disabled - no database

@@ -57,7 +57,7 @@
     }
   },
   "donate": {
-    "pageTitle": "Support DevTools",
+    "pageTitle": "Support VibeTools",
     "pageDescription": "If you find this tool useful, consider supporting us to help maintain the server and cover AI API token costs. Every contribution is appreciated! 💖",
     "serverHosting": "Server Hosting",
     "maintainUptime": "Maintain 24/7 uptime",
@@ -75,10 +75,10 @@
     "accountNumber": "Account Number:",
     "accountHolder": "Account Holder:",
     "transferContent": "Transfer Content:",
-    "supportDevTools": "Ung ho DevTools",
+    "supportDevTools": "Ung ho VibeTools",
     "thankYou": "Thank You So Much! 🙏",
-    "supportHelps": "Your support helps DevTools continue to grow and provide free, useful tools for the developer community. Every contribution, big or small, means a lot to us! ❤️",
-    "freeProject": "DevTools is a free project for the community",
+    "supportHelps": "Your support helps VibeTools continue to grow and provide free, useful tools for the developer community. Every contribution, big or small, means a lot to us! ❤️",
+    "freeProject": "VibeTools is a free project for the community",
     "builtWithLove": "Built with ❤️ by Kevin Vu",
     "accountNumberCopied": "Account number copied!",
     "copyAccountNumber": "Copy Account Number"

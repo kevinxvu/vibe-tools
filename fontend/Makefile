@@ -1,16 +1,16 @@
 .PHONY: help install dev build build-prod build-local preview clean test check format docker-build docker-run docker-stop docker-logs docker-export docker-import docker-clean docker-up docker-down
 
 # Docker configuration
-DOCKER_IMAGE_NAME = devtools
+DOCKER_IMAGE_NAME = vibetools
 DOCKER_TAG = latest
-DOCKER_CONTAINER_NAME = devtools-web
+DOCKER_CONTAINER_NAME = vibetools-web
 DOCKER_PORT = 3000
-DOCKER_EXPORT_FILE = devtools-image.tar
+DOCKER_EXPORT_FILE = vibetools-image.tar
 
 # Default target
 help:
 	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-	@echo "  DevTools - Makefile Commands"
+	@echo "  VibeTools - Makefile Commands"
 	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 	@echo ""
 	@echo "📦 Setup & Installation:"

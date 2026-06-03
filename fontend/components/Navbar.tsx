@@ -51,7 +51,7 @@ export const Navbar: React.FC = () => {
             <div className="bg-indigo-600 text-white p-1.5 rounded-lg">
               <Terminal size={20} />
             </div>
-            <span>DevTools</span>
+            <span>VibeTools</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-1 ml-4">

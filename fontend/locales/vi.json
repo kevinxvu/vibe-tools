@@ -57,7 +57,7 @@
     }
   },
   "donate": {
-    "pageTitle": "Ủng Hộ DevTools",
+    "pageTitle": "Ủng Hộ VibeTools",
     "pageDescription": "Nếu bạn thấy công cụ này hữu ích, hãy xem xét ủng hộ để giúp chúng tôi duy trì server và chi trả cho AI API tokens. Mọi đóng góp đều được trân trọng! 💖",
     "serverHosting": "Thuê máy chủ",
     "maintainUptime": "Duy trì uptime 24/7",
@@ -75,10 +75,10 @@
     "accountNumber": "Số tài khoản:",
     "accountHolder": "Chủ tài khoản:",
     "transferContent": "Nội dung:",
-    "supportDevTools": "Ung ho DevTools",
+    "supportDevTools": "Ung ho VibeTools",
     "thankYou": "Cảm Ơn Bạn Rất Nhiều! 🙏",
-    "supportHelps": "Sự ủng hộ của bạn giúp DevTools tiếp tục phát triển và cung cấp miễn phí các công cụ hữu ích cho cộng đồng developer. Mọi đóng góp, dù lớn hay nhỏ, đều có ý nghĩa rất lớn với chúng tôi! ❤️",
-    "freeProject": "DevTools là dự án miễn phí cho cộng đồng",
+    "supportHelps": "Sự ủng hộ của bạn giúp VibeTools tiếp tục phát triển và cung cấp miễn phí các công cụ hữu ích cho cộng đồng developer. Mọi đóng góp, dù lớn hay nhỏ, đều có ý nghĩa rất lớn với chúng tôi! ❤️",
+    "freeProject": "VibeTools là dự án miễn phí cho cộng đồng",
     "builtWithLove": "Được xây dựng với ❤️ bởi Kevin Vu",
     "accountNumberCopied": "Đã copy Số tài khoản!",
     "copyAccountNumber": "Copy số tài khoản"

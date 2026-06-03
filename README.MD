@@ -1,300 +1,186 @@
+<div align="center">
+
 # VibeTools
 
-A practical toolkit for developers who are tired of opening 17 tabs just to format JSON, decode a JWT, and ask AI to summarize a 4,000-word rant.
+**An all-in-one developer toolbox. AI-powered utilities and classic dev tools, in one self-hosted app.**
 
-VibeTools combines a Go backend, an embedded frontend SPA, and a bunch of useful tools in one place.
+[![Go](https://img.shields.io/badge/Go-1.24+-00ADD8?style=flat&logo=go)](https://go.dev)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat)](LICENSE)
+[![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=flat&logo=docker)](https://www.docker.com)
 
-Vietnamese version: [README_VN.MD](README_VN.MD)
+[Demo](https://tool.genzdev.net) · [Getting Started](#getting-started) · [AI Tools](#ai-tools) · [Dev Tools](#dev-tools) · [Self-Hosting](#self-hosting) · [Docs](docs/TECHNICAL.md)
 
----
-
-## What Is VibeTools?
-
-VibeTools is a full-stack developer toolbox with two big goals:
-
-- Make everyday dev tasks fast and painless.
-- Add AI helpers that actually save time instead of adding buzzwords.
-
-You get classic dev utilities and AI-powered tools in one app, backed by a clean Go architecture.
+</div>
 
 ---
+
+VibeTools replaces the 17 browser tabs you open every day — JSON formatter, JWT decoder, AI summarizer, HTTP client, and more — with a single self-hosted app. No accounts, no telemetry, no internet required after setup.
+
+**Live demo:** [https://tool.genzdev.net](https://tool.genzdev.net)
+
+![VibeTools demo](docs/demo_pic.png)
+
+> Vietnamese: [README_VN.MD](README_VN.MD)
 
 ## Features
 
-### AI Tools
-
-- Chat to Article: Convert chat logs into structured technical articles.
-- Text Summarizer: Summarize long content in multiple styles.
-- Email Generator: Draft emails in different tones.
-- Smart Chat Reply: Suggest replies from text or screenshot context.
-- AI Transcriber: Transcribe audio/video and export as `text`, `json`, or `srt`.
-- AI Translator: Context-aware translation with strict input/output behavior.
-- OCR Tool: Extract text from images.
-- Markdown Format: Clean up messy markdown into readable format.
-- Markdown Parser: Convert HTML, plain text, website URLs, and files (DOC, XLSX, PDF) to clean Markdown format.
-
-### Dev Tools
-
-- HTTP Client: Send and inspect REST requests (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
-- JSON Formatter: Pretty print, minify, and inspect JSON.
-- JWT Tool: Decode and encode JWT (`HS256`).
-- Markdown Viewer: Editor + preview with synchronized scrolling.
-- HTML Viewer: Edit, preview, tree view, beautify.
-- XML Formatter: Format, minify, and inspect XML tree.
-- String Hash: MD5, SHA family, Keccak.
-- Bcrypt Tool: Generate and verify bcrypt hashes.
-- String Length Calculator: Character/word stats, token-aware counting.
-- Multiline Converter: Clean and transform multiline text.
-- Text Case Converter: Upper, lower, camel, snake, slug, and more.
-- String Escaper: Escape/unescape for HTML, XML, JS, JSON, CSV, SQL.
-- Text Replacer: Template replacement with `{{var}}` style placeholders.
-- HTML Encoder: HTML entity encode/decode.
-- Base64 Converter: Encode/decode text and file content.
-- URL Converter: URL encode/decode.
-- Password Generator: Strong password generation + strength hints.
-- UUID Generator: Generate and inspect UUID (`v4`, `v7`).
-- Snowflake Generator: Generate and inspect Snowflake IDs.
-- Timestamp Converter: Convert Unix timestamps and RFC3339 datetimes.
-- Log Analyzer: Tabular view and detailed inspector for structured JSON logs (SQL, API types).
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-| --- | --- |
-| Backend Framework | Echo v4 |
-| ORM | GORM |
-| Database | PostgreSQL / MySQL / MariaDB / SQLite |
-| Auth | JWT (HS256 / RS256) |
-| Migration | Goose (SQL-based) |
-| Dependency Injection | Google Wire |
-| Logging | Uber Zap (structured JSON) |
-| API Docs | Swaggo (Swagger / OpenAPI) |
-| AI Integration | OpenAI Go SDK (chat + audio) |
-| Cloud Integrations | AWS SES, S3, SNS, SQS |
-| Frontend Delivery | Embedded SPA via `//go:embed` |
-
----
-
-## Project Structure
-
-```text
-.
-├── cmd/
-│   ├── api/                # API entrypoint
-│   └── migration/          # Migration CLI entrypoint
-├── config/                 # Runtime configuration struct
-├── fontend/
-│   ├── dist/               # Built frontend bundle
-│   └── static.go           # Embedded FS for frontend assets
-├── internal/
-│   ├── api/
-│   │   ├── docs/           # Swagger output
-│   │   ├── handler/        # HTTP handlers
-│   │   ├── router/         # Route registration
-│   │   └── service/        # Business logic
-│   ├── di/                 # Wire providers + generated wiring
-│   ├── migrations/         # SQL migration files
-│   ├── model/              # DB models
-│   └── repository/         # Data access layer
-└── pkg/
-    ├── aws/                # AWS wrappers
-    ├── database/           # Base DB utilities
-    ├── logging/            # Logger utilities
-    ├── openai/             # OpenAI wrappers
-    ├── server/             # Echo server, middleware, errors
-    └── util/               # Shared helpers
-```
-
----
-
-## API Overview
-
-Public endpoints:
-
-- `POST /login`
-- `POST /refresh-token`
-- `GET /health`
-
-Protected endpoints (base: `/api/v1`):
-
-- Users: `/users`, `/users/:id`, `/users/me`, `/users/me/password`
-- Countries: `/countries`, `/countries/:id`
-- LLM tools:
-  - `/llm/chat-to-article`
-  - `/llm/ai-transcriber`
-  - `/llm/ai-translator`
-  - `/llm/email-generator`
-  - `/llm/markdown-format`
-  - `/llm/ocr`
-  - `/llm/smart-chat-reply`
-  - `/llm/text-summarizer`
+- **29 tools** across AI and developer categories
+- **AI tools** powered by OpenAI, Google Gemini, or Vertex AI
+- **Dev tools** run entirely in the browser — no data leaves your machine
+- **Single binary** — Go backend with the React SPA embedded inside
+- **Self-hostable** in minutes via Docker or from source
+- **Multilingual UI** — English and Vietnamese
 
 ---
 
 ## Getting Started
 
-### Prerequisites
+### Docker
 
-- Go `1.24+`
-- Docker and Docker Compose
-- `air` for hot reload
-- `wire` for dependency injection generation
-- `swag` for Swagger generation
+The fastest way to get started:
 
-### First Time Setup
-
-```bash
-make provision
-make dev
+```sh
+docker run -p 8080:8080 ghcr.io/kevinxvu/vibe-tools:latest
 ```
 
-App URL: `http://localhost:8080`
+Open **http://localhost:8080**
 
-Swagger UI: `http://localhost:8080/docs/index.html`
+### From Source
 
-### Default Credentials
+**Prerequisites:** Go 1.24+, Docker, [`air`](https://github.com/air-verse/air), [`wire`](https://github.com/google/wire), [`swag`](https://github.com/swaggo/swag)
 
-```json
-{
-  "username": "superadmin",
-  "password": "superadmin123!@#"
-}
+```sh
+git clone git@github.com:kevinxvu/vibe-tools.git
+cd vibe-tools
+
+make provision   # Start database container and run migrations
+make dev         # Start the server with hot reload
 ```
+---
 
-Yes, this password is dramatic. Use environment-specific credentials in real deployments.
+## AI Tools
+
+AI tools call your configured LLM provider. See [Configuring AI](#configuring-ai) to set one up.
+
+| Tool | Description |
+| --- | --- |
+| **Chat to Article** | Turn a chat log or Slack thread into a structured technical article. |
+| **Text Summarizer** | Summarize long content in multiple styles — bullets, paragraph, TLDR, executive. |
+| **Email Generator** | Draft professional emails in different tones from a short brief. |
+| **Smart Chat Reply** | Get reply suggestions from a conversation thread or a screenshot. |
+| **AI Transcriber** | Transcribe audio or video files to `text`, `json`, or `srt`. |
+| **AI Translator** | Context-aware translation with configurable source/target language and tone. |
+| **OCR Tool** | Extract text from images — screenshots, scanned documents, whiteboard photos. |
+| **Markdown Format** | Clean up messy or malformed markdown into a consistently formatted version. |
+| **Markdown Parser** | Convert HTML, plain text, URLs, or files (DOC, XLSX, PDF) to clean Markdown. |
 
 ---
 
-## Development Commands
+## Dev Tools
 
-```bash
-make dev                  # Run app with hot reload
-make specs                # Generate swagger specs
-make wire                 # Regenerate Wire DI
-make test.cover           # Run tests and open coverage
+All dev tools run locally in the browser. No data is sent to any server.
 
-make migrate              # Run pending migrations
-make migrate.status       # Check migration status
-make migrate.version      # Show migration version
-make migrate.undo         # Undo last migration
-make migrate.create name=add_feature
-make migrate.reset        # Rollback all migrations
-make migrate.redo         # Redo last migration
-
-make build.linux          # Cross-compile for Linux
-make build.windows        # Cross-compile for Windows
-make build.arm            # Cross-compile for ARM
-make remove               # Bring down server and remove Docker resources
-make clean                # Clean built files
-
-make docker.build         # Build Docker image
-make docker.run           # Run container
-make docker.logs          # Tail logs
-make docker.stop          # Stop and remove container
-make docker.export        # Export image to tar
-
-# Frontend (run from project root)
-make fe.install           # Install frontend dependencies
-make fe.dev               # Start frontend dev server → http://localhost:5173
-make fe.build             # Build frontend (embedded into binary)
-make fe.build-local       # Build frontend with local API URL
-make fe.build-prod        # Build frontend with production API URL
-make fe.preview           # Preview production frontend build
-```
+| Tool | Description |
+| --- | --- |
+| **HTTP Client** | Send REST requests and inspect responses, headers, and status codes. |
+| **JSON Formatter** | Pretty-print, minify, validate, and explore JSON as a tree. |
+| **JWT Tool** | Decode a JWT to inspect its claims, or encode a new one with a custom secret. |
+| **Markdown Viewer** | Live editor and preview with synchronized scrolling. |
+| **HTML Viewer** | Edit and preview HTML with live rendering, tree view, and beautify. |
+| **XML Formatter** | Format, minify, and explore XML as an interactive tree. |
+| **String Hash** | Compute MD5, SHA-1, SHA-256, SHA-512, and Keccak hashes. |
+| **Bcrypt Tool** | Hash a password with bcrypt, or verify a password against a hash. |
+| **String Length Calculator** | Count characters, words, lines, and tokens. Useful for sizing LLM prompts. |
+| **Multiline Converter** | Join, quote, bracket, or transform multi-line text in one click. |
+| **Text Case Converter** | Convert between camelCase, PascalCase, snake_case, kebab-case, slug, and more. |
+| **String Escaper** | Escape and unescape for HTML, XML, JS, JSON, CSV, and SQL. |
+| **Text Replacer** | Template replacement with `{{variable}}` placeholders. |
+| **HTML Encoder** | Encode and decode HTML entities. |
+| **Base64 Converter** | Encode and decode Base64 — text or file content. |
+| **URL Converter** | URL-encode and decode strings and query parameters. |
+| **Password Generator** | Generate strong passwords with configurable character sets and length. |
+| **UUID Generator** | Generate `v4` and `v7` UUIDs and inspect the fields of any UUID. |
+| **Snowflake Generator** | Generate Snowflake IDs and decode the embedded timestamp and machine ID. |
+| **Timestamp Converter** | Convert between Unix, milliseconds, and RFC3339 datetime formats. |
+| **Log Analyzer** | View and filter structured JSON logs (SQL, API) in a clean table layout. |
 
 ---
 
-## Architecture Notes
+## Self-Hosting
 
-- Flow is `Service -> Handler -> Router`.
-- Dependency graph is generated at compile-time using Wire.
-- Frontend is embedded into the binary (`fontend/dist`) and served as SPA fallback.
-- `/*` frontend route is registered last, so API routes are not shadowed.
+### Docker
+
+```sh
+docker run -d \
+  --name vibe-tools \
+  -p 8080:8080 \
+  -e LLM_TEXT_MODEL=openai/gpt-5.5 \
+  -e LLM_AUDIO_MODEL=openai/gpt-5.5 \
+  -e LLM_PROVIDER=openai \
+  -e LLM_MAX_INPUT_TOKENS=12000 \
+  -e LLM_LIMIT_TOKEN_USAGE=10000000 \
+  -e OPENAI_API_KEY="your_openai_api_key" \
+  -e OPENAI_BASE_URL="your_openai_base_url" \
+  ghcr.io/kevinxvu/vibe-tools:latest
+```
+
+Open **http://localhost:8080** after the container starts.
+
+### Docker Compose
+
+Create `docker-compose.yml`:
+
+```yaml
+services:
+  vibe-tools:
+    image: ghcr.io/kevinxvu/vibe-tools:latest
+    container_name: vibe-tools
+    ports:
+      - "8080:8080"
+    environment:
+      LLM_TEXT_MODEL: openai/gpt-5.5
+      LLM_AUDIO_MODEL: openai/gpt-5.5
+      LLM_PROVIDER: openai
+      LLM_MAX_INPUT_TOKENS: "12000"
+      LLM_LIMIT_TOKEN_USAGE: "10000000"
+      OPENAI_API_KEY: "your_openai_api_key"
+      OPENAI_BASE_URL: "your_openai_base_url"
+    restart: unless-stopped
+```
+
+Start the app:
+
+```sh
+docker compose up -d
+```
+
+Replace `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `LLM_TEXT_MODEL`, `LLM_AUDIO_MODEL` with your actual API key and Base URL before exposing the app.
+
+For all available options, see the [Configuration Reference](docs/TECHNICAL.md#configuration-reference).
 
 ---
 
-## Configuration
+## Documentation
 
-Environment variable priority:
-
-1. OS environment variables
-2. `.env.local`
-3. `.env`
-
-### Server
-
-| Variable | Default | Example | Description |
-| --- | --- | --- | --- |
-| `STAGE` | — | `development` | Runtime stage. Affects logging and behavior. Use `production` in prod. |
-| `HOST` | — | `0.0.0.0` | Host address the server binds to. |
-| `PORT` | — | `8080` | TCP port the HTTP server listens on. |
-| `READ_TIMEOUT` | — | `10` | HTTP read timeout in seconds. |
-| `WRITE_TIMEOUT` | — | `5` | HTTP write timeout in seconds. |
-| `ALLOW_ORIGINS` | — | `https://example.com` | Comma-separated CORS allowed origins. Use `*` for development only. |
-| `DEBUG` | `false` | `true` | Enable verbose debug logging. |
-| `DB_LOG` | `false` | `true` | Enable GORM SQL query logging. |
-| `APP_ID` | `vibetools` | `vibetools` | Application identifier used internally. |
-
-### API Docs
-
-| Variable | Default | Example | Description |
-| --- | --- | --- | --- |
-| `IS_ENABLE_API_DOCS` | `false` | `true` | Enable Swagger UI at `/docs/index.html`. Disable in production. |
-| `API_DOCS_PATH` | — | `docs` | Path prefix for Swagger files. |
-
-### LLM (AI features)
-
-| Variable | Default | Example | Description |
-| --- | --- | --- | --- |
-| `LLM_PROVIDER` | `openai` | `openai` | Active LLM provider. `openai` uses the OpenAI-compatible API; `genai` uses Google GenAI / Vertex AI. |
-| `LLM_TEXT_MODEL` | — | `gpt-4o` | Model name for text/chat completions. |
-| `LLM_AUDIO_MODEL` | — | `whisper-1` | Model name for audio transcription. |
-| `LLM_TIMEOUT` | `300` | `120` | Request timeout in seconds for LLM calls. |
-| `LLM_MAX_RETRIES` | `0` | `2` | Number of automatic retries on transient LLM errors. |
-| `LLM_MAX_INPUT_TOKENS` | `0` | `12000` | Maximum input tokens per request. `0` = unlimited. |
-| `LLM_MAX_OUTPUT_TOKENS` | `0` | `4096` | Maximum output tokens per request. `0` = unlimited. |
-| `LLM_LIMIT_TOKEN_USAGE` | `0` | `10000000` | Cumulative token budget across all requests. `0` = unlimited. |
-
-### OpenAI Provider
-
-| Variable | Default | Example | Description |
-| --- | --- | --- | --- |
-| `OPENAI_API_KEY` | — | `sk-...` | OpenAI (or compatible) API key. Required when `LLM_PROVIDER=openai`. |
-| `OPENAI_BASE_URL` | — | `https://api.openai.com/v1` | Base URL override. Use for Azure OpenAI, local proxies, or the Gemini OpenAI-compatible endpoint (`https://generativelanguage.googleapis.com/v1beta/openai/`). |
-
-### Google GenAI Provider
-
-| Variable | Default | Example | Description |
-| --- | --- | --- | --- |
-| `GENAI_API_KEY` | — | `AIza...` | Gemini Developer API key. Used when `GENAI_BACKEND=1` (Gemini API). |
-| `GENAI_BACKEND` | `2` | `1` | Backend selector: `0` = auto-detect, `1` = Gemini Developer API, `2` = Vertex AI. |
-| `GENAI_PROJECT` | — | `my-gcp-project` | GCP project ID. Required for Vertex AI (`GENAI_BACKEND=2`). |
-| `GENAI_LOCATION` | — | `us-central1` | GCP region for Vertex AI. |
-| `GENAI_CREDENTIALS_FILE` | — | `/secrets/sa.json` | Path to a GCP service account JSON key file. Omit to use Application Default Credentials. |
+| Document | Description |
+| --- | --- |
+| [docs/TECHNICAL.md](docs/TECHNICAL.md) | Architecture, API reference, development guide, deployment |
 
 ---
 
-## Docker
+## Contributing
 
-Build and run:
+Contributions are welcome. Please open an issue to discuss a change before submitting a pull request.
 
-```bash
-make docker.build
-make docker.run
-```
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/your-feature`
+3. Commit your changes
+4. Open a pull request
 
-Health endpoint:
-
-```bash
-GET /health
-```
-
-The container startup script runs migrations before serving traffic.
+See [docs/TECHNICAL.md](docs/TECHNICAL.md) for architecture details and development setup.
 
 ---
 
 ## License
 
-MIT
+[MIT](LICENSE)

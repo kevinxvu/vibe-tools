@@ -95,7 +95,7 @@ export const Donate: React.FC = () => {
                 <div className="w-64 h-64 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center">
                   {/* Thay thế bằng QR code thực tế của bạn */}
                   <img 
-                    src="https://img.vietqr.io/image/VCB-1014903559-compact.png?amount=50000&addInfo=Ung%20ho%20DevTools&accountName=VU%20VAN%20DUONG" 
+                    src="https://img.vietqr.io/image/VCB-1014903559-compact.png?amount=50000&addInfo=Ung%20ho%20VibeTools&accountName=VU%20VAN%20DUONG" 
                     alt="QR Code" 
                     className="w-full h-full object-contain"
                   />
