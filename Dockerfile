@@ -11,11 +11,10 @@ RUN --mount=type=cache,target=/root/go/pkg/mod \
     CGO_ENABLED=0 go build -ldflags="-w -s" -o /app/server ./cmd/api
 
 # Stage 2: Runtime
-FROM alpine:3.19
+FROM alpine:3.23
 RUN apk --no-cache add ca-certificates tzdata wget
 WORKDIR /app
 COPY --from=builder /app/server /app/server
-COPY --from=builder /app/.env /app/.env
 COPY --from=builder /app/scripts/docker-entrypoint.sh /app/docker-entrypoint.sh
 RUN chmod +x /app/docker-entrypoint.sh
 

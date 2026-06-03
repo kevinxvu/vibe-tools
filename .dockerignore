@@ -21,8 +21,10 @@ tmp/
 logs/
 fontend/node_modules
 
-# Environment files (will copy .env explicitly)
+# Environment files
+.env
 .env.local
+.env.*
 .env.*.local
 
 # Documentation

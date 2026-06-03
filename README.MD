@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat)](LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=flat&logo=docker)](https://www.docker.com)
 
-[Getting Started](#getting-started) · [AI Tools](#ai-tools) · [Dev Tools](#dev-tools) · [Self-Hosting](#self-hosting) · [Docs](docs/TECHNICAL.md)
+[Demo](https://tool.genzdev.net) · [Getting Started](#getting-started) · [AI Tools](#ai-tools) · [Dev Tools](#dev-tools) · [Self-Hosting](#self-hosting) · [Docs](docs/TECHNICAL.md)
 
 </div>
 
@@ -16,7 +16,11 @@
 
 VibeTools replaces the 17 browser tabs you open every day — JSON formatter, JWT decoder, AI summarizer, HTTP client, and more — with a single self-hosted app. No accounts, no telemetry, no internet required after setup.
 
-> 🇻🇳 Vietnamese readme: [README_VN.MD](README_VN.MD)
+**Live demo:** [https://tool.genzdev.net](https://tool.genzdev.net)
+
+![VibeTools demo](docs/demo_pic.png)
+
+> Vietnamese: [README_VN.MD](README_VN.MD)
 
 ## Features
 
@@ -39,40 +43,19 @@ The fastest way to get started:
 docker run -p 8080:8080 ghcr.io/kevinxvu/vibe-tools:latest
 ```
 
-Open **http://localhost:8080** and log in with the default credentials.
-
-### Docker Compose
-
-```sh
-git clone <repo-url>
-cd vibe-tools
-
-# Copy and edit the environment file
-cp .env.example .env
-
-docker compose up -d
-```
+Open **http://localhost:8080**
 
 ### From Source
 
 **Prerequisites:** Go 1.24+, Docker, [`air`](https://github.com/air-verse/air), [`wire`](https://github.com/google/wire), [`swag`](https://github.com/swaggo/swag)
 
 ```sh
-git clone <repo-url>
+git clone git@github.com:kevinxvu/vibe-tools.git
 cd vibe-tools
 
 make provision   # Start database container and run migrations
 make dev         # Start the server with hot reload
 ```
-
-**Default credentials**
-
-| Username | Password |
-| --- | --- |
-| `superadmin` | `superadmin123!@#` |
-
-> **Note:** Change these before exposing the app to any network.
-
 ---
 
 ## AI Tools
@@ -125,70 +108,55 @@ All dev tools run locally in the browser. No data is sent to any server.
 
 ## Self-Hosting
 
-### Minimum `.env`
+### Docker
 
-```env
-STAGE=production
-PORT=8080
-JWT_SECRET=replace-with-a-long-random-secret
-
-DB_TYPE=mysql
-DB_DSN=user:password@tcp(db-host:3306)/vibetools?charset=utf8mb4&parseTime=True&loc=Local
+```sh
+docker run -d \
+  --name vibe-tools \
+  -p 8080:8080 \
+  -e LLM_TEXT_MODEL=openai/gpt-5.5 \
+  -e LLM_AUDIO_MODEL=openai/gpt-5.5 \
+  -e LLM_PROVIDER=openai \
+  -e LLM_MAX_INPUT_TOKENS=12000 \
+  -e LLM_LIMIT_TOKEN_USAGE=10000000 \
+  -e OPENAI_API_KEY="your_openai_api_key" \
+  -e OPENAI_BASE_URL="your_openai_base_url" \
+  ghcr.io/kevinxvu/vibe-tools:latest
 ```
+
+Open **http://localhost:8080** after the container starts.
+
+### Docker Compose
+
+Create `docker-compose.yml`:
+
+```yaml
+services:
+  vibe-tools:
+    image: ghcr.io/kevinxvu/vibe-tools:latest
+    container_name: vibe-tools
+    ports:
+      - "8080:8080"
+    environment:
+      LLM_TEXT_MODEL: openai/gpt-5.5
+      LLM_AUDIO_MODEL: openai/gpt-5.5
+      LLM_PROVIDER: openai
+      LLM_MAX_INPUT_TOKENS: "12000"
+      LLM_LIMIT_TOKEN_USAGE: "10000000"
+      OPENAI_API_KEY: "your_openai_api_key"
+      OPENAI_BASE_URL: "your_openai_base_url"
+    restart: unless-stopped
+```
+
+Start the app:
+
+```sh
+docker compose up -d
+```
+
+Replace `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `LLM_TEXT_MODEL`, `LLM_AUDIO_MODEL` with your actual API key and Base URL before exposing the app.
 
 For all available options, see the [Configuration Reference](docs/TECHNICAL.md#configuration-reference).
-
-### Configuring AI
-
-<details>
-<summary><strong>OpenAI</strong></summary>
-
-```env
-LLM_PROVIDER=openai
-OPENAI_API_KEY=sk-...
-LLM_TEXT_MODEL=gpt-4o
-LLM_AUDIO_MODEL=whisper-1
-```
-
-</details>
-
-<details>
-<summary><strong>Google Gemini (Developer API)</strong></summary>
-
-```env
-LLM_PROVIDER=genai
-GENAI_API_KEY=AIza...
-GENAI_BACKEND=1
-LLM_TEXT_MODEL=gemini-2.0-flash
-```
-
-</details>
-
-<details>
-<summary><strong>Google Vertex AI</strong></summary>
-
-```env
-LLM_PROVIDER=genai
-GENAI_BACKEND=2
-GENAI_PROJECT=my-gcp-project
-GENAI_LOCATION=us-central1
-GENAI_CREDENTIALS_FILE=/path/to/service-account.json
-LLM_TEXT_MODEL=gemini-2.0-flash
-```
-
-</details>
-
-<details>
-<summary><strong>Azure OpenAI / OpenAI-compatible endpoints</strong></summary>
-
-```env
-LLM_PROVIDER=openai
-OPENAI_API_KEY=<your-key>
-OPENAI_BASE_URL=https://your-endpoint/openai/deployments/your-model
-LLM_TEXT_MODEL=your-deployment-name
-```
-
-</details>
 
 ---
 
