@@ -35,6 +35,7 @@ type Service interface {
 	AiTranslator(context.Context, *model.AuthUser, AiTranslatorData) (*AiTranslatorResp, error)
 	EmailGenerator(context.Context, *model.AuthUser, EmailGeneratorData) (*EmailGeneratorResp, error)
 	MarkdownFormat(context.Context, *model.AuthUser, MarkdownFormatData) (*MarkdownFormatResp, error)
+	MermaidGenerator(context.Context, *model.AuthUser, MermaidGeneratorData) (*MermaidGeneratorResp, error)
 	Ocr(context.Context, *model.AuthUser, OcrData) (*OcrResp, error)
 	SmartChatReply(context.Context, *model.AuthUser, SmartChatReplyData) (*SmartChatReplyResp, error)
 	TextSummarizer(context.Context, *model.AuthUser, TextSummarizerData) (*TextSummarizerResp, error)
@@ -341,6 +342,57 @@ RULES:
 	}
 
 	return &MarkdownFormatResp{Content: resp.Content}, nil
+}
+
+// MermaidGenerator generates Mermaid diagram source from a natural-language description.
+func (s *LLMService) MermaidGenerator(ctx context.Context, authUsr *model.AuthUser, data MermaidGeneratorData) (*MermaidGeneratorResp, error) {
+	temperature := 0.2
+	diagramType := data.DiagramType
+	if diagramType == "auto" {
+		diagramType = "choose the best Mermaid diagram type for the user's description"
+	}
+
+	systemPrompt := fmt.Sprintf(`You are an expert Mermaid.js diagram author.
+
+TASK:
+Convert the user's description into a valid Mermaid chart.
+
+INPUT:
+- The description can be written in any language.
+- Understand the intent, entities, relationships, order, and labels naturally.
+
+DIAGRAM TYPE:
+- Requested type: %s.
+- If the requested type is auto, choose the most suitable Mermaid type.
+
+RULES:
+1. Return ONLY raw Mermaid syntax.
+2. Do not wrap the output in Markdown fences.
+3. Do not include explanations, comments, or conversational filler.
+4. Keep labels concise, readable, and faithful to the user's language unless technical keywords require English.
+5. Prefer simple, valid Mermaid syntax over decorative complexity.
+6. The first line must be a Mermaid diagram declaration such as flowchart TD, sequenceDiagram, classDiagram, stateDiagram-v2, erDiagram, journey, gantt, or mindmap.
+7. Avoid unsupported Markdown formatting inside node labels.`, diagramType)
+
+	resp, err := s.llm.ChatCompletion(ctx, llmpkg.ChatRequest{
+		SystemPrompt: &systemPrompt,
+		Temperature:  &temperature,
+		Messages: []llmpkg.Message{
+			{Role: "user", Content: data.Description},
+		},
+	})
+	if err != nil {
+		logging.FromContext(ctx).Sugar().Errorf("MermaidGenerator failed: %v", err)
+		return nil, wrapErr(err, ErrMermaidGenFailed)
+	}
+
+	content := strings.TrimSpace(resp.Content)
+	content = strings.TrimPrefix(content, "```mermaid")
+	content = strings.TrimPrefix(content, "```")
+	content = strings.TrimSuffix(content, "```")
+	content = strings.TrimSpace(content)
+
+	return &MermaidGeneratorResp{Content: content}, nil
 }
 
 // Ocr extracts text from an image using a vision-capable LLM

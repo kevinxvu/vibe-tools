@@ -7,7 +7,7 @@ import {
   BookOpen, AlignLeft, Binary, Link as LinkIcon, ShieldCheck,
   Calculator, Eraser, Code, Hash, ShieldAlert, Type, Mail,
   MessageSquareMore, FileEdit, Mic, FileCode, Subtitles, Languages, Activity,
-  ChevronDown, ChevronUp, Layers, X,
+  ChevronDown, ChevronUp, Layers, X, Workflow,
 } from 'lucide-react';
 import { Tool, ToolCategory } from '../types';
 import internalToolsData from '../data/internalTools.json';
@@ -20,6 +20,7 @@ const ICON_MAP: Record<string, any> = {
   BookOpen, AlignLeft, Binary, Link: LinkIcon, ShieldCheck,
   Calculator, Eraser, Code, Hash, ShieldAlert, Type, Mail,
   MessageSquareMore, FileEdit, Mic, FileCode, Subtitles, Languages, Activity,
+  Workflow,
 };
 
 const SIDEBAR_CATEGORY_ORDER: ToolCategory[] = ['AI', 'Frontend', 'Backend', 'Utility', 'String', 'DevOps'];

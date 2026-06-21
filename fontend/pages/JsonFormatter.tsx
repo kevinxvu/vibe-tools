@@ -12,6 +12,75 @@ import { useToolState } from '../lib/useToolState';
 
 type ViewMode = 'code' | 'tree';
 
+const stripJsonComments = (json: string): string => {
+  let result = '';
+  let inString = false;
+  let escaped = false;
+  let inLineComment = false;
+  let inBlockComment = false;
+
+  for (let i = 0; i < json.length; i += 1) {
+    const char = json[i];
+    const nextChar = json[i + 1];
+
+    if (inLineComment) {
+      if (char === '\n' || char === '\r') {
+        inLineComment = false;
+        result += char;
+      }
+      continue;
+    }
+
+    if (inBlockComment) {
+      if (char === '*' && nextChar === '/') {
+        inBlockComment = false;
+        i += 1;
+      } else if (char === '\n' || char === '\r') {
+        result += char;
+      }
+      continue;
+    }
+
+    if (inString) {
+      result += char;
+
+      if (escaped) {
+        escaped = false;
+      } else if (char === '\\') {
+        escaped = true;
+      } else if (char === '"') {
+        inString = false;
+      }
+
+      continue;
+    }
+
+    if (char === '"') {
+      inString = true;
+      result += char;
+      continue;
+    }
+
+    if (char === '/' && nextChar === '/') {
+      inLineComment = true;
+      i += 1;
+      continue;
+    }
+
+    if (char === '/' && nextChar === '*') {
+      inBlockComment = true;
+      i += 1;
+      continue;
+    }
+
+    result += char;
+  }
+
+  return result;
+};
+
+const parseJsonWithComments = (json: string) => JSON.parse(stripJsonComments(json));
+
 // --- Tree View Components ---
 const JsonValue: React.FC<{ value: any }> = ({ value }) => {
   if (value === null) return <span className="text-red-500">null</span>;
@@ -131,7 +200,7 @@ export const JsonFormatter: React.FC = () => {
     }
 
     try {
-      const parsed = JSON.parse(input);
+      const parsed = parseJsonWithComments(input);
       setParsedData(parsed);
       setError(null);
     } catch (err: any) {

@@ -199,6 +199,10 @@
     "markdown-parser": {
       "name": "Markdown Parser",
       "description": "Convert HTML, plain text, website URLs, and files (DOC, XLSX, PDF) to clean Markdown format."
+    },
+    "mermaid-generator": {
+      "name": "Mermaid Generator & Live Preview",
+      "description": "Generate Mermaid charts from descriptions, then edit source beside a live preview."
     }
   },
   "tools": {
@@ -461,6 +465,21 @@
       "failedToSave": "Failed to save file",
       "editor": "Editor",
       "preview": "Preview"
+    },
+    "mermaidGenerator": {
+      "pageTitle": "Mermaid Generator & Live Preview",
+      "pageDescription": "Generate Mermaid charts from descriptions in any language, then edit source beside a live preview.",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe a flow, architecture, sequence, database relationship, roadmap, or mind map in any language...",
+      "diagramType": "Diagram type",
+      "generate": "Generate Mermaid",
+      "generating": "Generating...",
+      "generated": "Mermaid diagram generated",
+      "generateFailed": "Failed to generate Mermaid diagram.",
+      "copied": "Mermaid source copied to clipboard",
+      "editTab": "Edit",
+      "previewTab": "Live Preview",
+      "fullScreenPreview": "Full Screen Preview"
     },
     "htmlViewer": {
       "pageTitle": "HTML Viewer & Editor",

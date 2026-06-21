@@ -26,6 +26,7 @@ func NewHTTP(svc llm.Service, auth model.Auth, eg *echo.Group) {
 	eg.POST("/ai-translator", h.aiTranslator)
 	eg.POST("/email-generator", h.emailGenerator)
 	eg.POST("/markdown-format", h.markdownFormat)
+	eg.POST("/mermaid-generator", h.mermaidGenerator)
 	eg.POST("/ocr", h.ocr)
 	eg.POST("/smart-chat-reply", h.smartChatReply)
 	eg.POST("/text-summarizer", h.textSummarizer)
@@ -146,6 +147,34 @@ func (h *HTTP) markdownFormat(c echo.Context) error {
 		return err
 	}
 	resp, err := h.svc.MarkdownFormat(c.Request().Context(), h.auth.User(c), r)
+	if err != nil {
+		return err
+	}
+	return c.JSON(http.StatusOK, resp)
+}
+
+// @Security		BearerToken
+// @Summary		Generate Mermaid chart
+// @Description	Generates valid Mermaid chart source from a natural-language description in any language
+// @Accept			json
+// @Produce		json
+// @Tags			llm
+// @ID				llmMermaidGenerator
+// @Param			request							body		llm.MermaidGeneratorData	true	"MermaidGeneratorData"
+// @Success		200								{object}	llm.MermaidGeneratorResp
+// @Failure		400								{object}	SwaggErrDetailsResp
+// @Failure		401								{object}	SwaggErrDetailsResp
+// @Failure		500								{object}	SwaggErrDetailsResp
+// @Router			/api/v1/llm/mermaid-generator	[post]
+func (h *HTTP) mermaidGenerator(c echo.Context) error {
+	r := llm.MermaidGeneratorData{}
+	if err := c.Bind(&r); err != nil {
+		return err
+	}
+	if err := c.Validate(r); err != nil {
+		return err
+	}
+	resp, err := h.svc.MermaidGenerator(c.Request().Context(), h.auth.User(c), r)
 	if err != nil {
 		return err
 	}

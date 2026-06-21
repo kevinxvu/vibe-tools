@@ -113,6 +113,40 @@ export const formatMarkdown = async (markdown: string): Promise<string> => {
   return response.data.content;
 };
 
+// ── Mermaid Generator ─────────────────────────────────────────────────────────
+
+export type MermaidDiagramType =
+  | 'auto'
+  | 'flowchart'
+  | 'sequenceDiagram'
+  | 'classDiagram'
+  | 'stateDiagram'
+  | 'erDiagram'
+  | 'journey'
+  | 'gantt'
+  | 'mindmap';
+
+export interface MermaidGeneratorRequest {
+  description: string;
+  diagram_type: MermaidDiagramType;
+}
+
+/**
+ * POST /api/v1/llm/mermaid-generator
+ * Generates raw Mermaid source from a natural-language description.
+ */
+export const generateMermaid = async (params: MermaidGeneratorRequest): Promise<string> => {
+  const response = await apiClient.post<{ content: string }>(
+    '/api/v1/llm/mermaid-generator',
+    {
+      description: params.description,
+      diagram_type: params.diagram_type,
+    }
+  );
+
+  return response.data.content;
+};
+
 // ── Email Generator ───────────────────────────────────────────────────────────
 
 export interface EmailGeneratorRequest {

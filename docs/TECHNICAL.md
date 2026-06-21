@@ -86,7 +86,7 @@ HTTP Request
 │   ├── locales/
 │   │   ├── en.json             # English translations
 │   │   └── vi.json             # Vietnamese translations
-│   └── pages/                  # One file per tool (29 tools)
+│   └── pages/                  # One file per tool (30 tools)
 ├── internal/
 │   ├── api/
 │   │   ├── docs/               # Swagger/OpenAPI output (generated)
@@ -162,7 +162,7 @@ Follow the **Service → Handler → Router** pattern:
 
 ## Configuration Reference
 
-Environment variable priority: **OS env > `.env.local` > `.env`**
+Environment variable priority: **OS env > `.env` > `.env.local`**
 
 ### Server
 

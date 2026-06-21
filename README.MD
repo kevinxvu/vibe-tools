@@ -24,7 +24,7 @@ VibeTools replaces the 17 browser tabs you open every day — JSON formatter, JW
 
 ## Features
 
-- **29 tools** across AI and developer categories
+- **30 tools** across AI and developer categories
 - **AI tools** powered by OpenAI, Google Gemini, or Vertex AI
 - **Dev tools** run entirely in the browser — no data leaves your machine
 - **Single binary** — Go backend with the React SPA embedded inside
@@ -60,7 +60,7 @@ make dev         # Start the server with hot reload
 
 ## AI Tools
 
-AI tools call your configured LLM provider. See [Configuring AI](#configuring-ai) to set one up.
+AI tools call your configured LLM provider. See [LLM (AI Features)](docs/TECHNICAL.md#llm-ai-features) to set one up.
 
 | Tool | Description |
 | --- | --- |
@@ -73,6 +73,7 @@ AI tools call your configured LLM provider. See [Configuring AI](#configuring-ai
 | **OCR Tool** | Extract text from images — screenshots, scanned documents, whiteboard photos. |
 | **Markdown Format** | Clean up messy or malformed markdown into a consistently formatted version. |
 | **Markdown Parser** | Convert HTML, plain text, URLs, or files (DOC, XLSX, PDF) to clean Markdown. |
+| **Mermaid Generator & Live Preview** | Generate Mermaid diagrams from descriptions, then edit source beside a live preview. |
 
 ---
 

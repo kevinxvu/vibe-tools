@@ -59,6 +59,7 @@ var (
 	ErrTranslateFailed   = apperr.NewHTTPError(http.StatusInternalServerError, "TRANSLATE_FAILED", "Failed to translate text")
 	ErrEmailGenFailed    = apperr.NewHTTPError(http.StatusInternalServerError, "EMAIL_GEN_FAILED", "Failed to generate email")
 	ErrMarkdownFmtFailed = apperr.NewHTTPError(http.StatusInternalServerError, "MARKDOWN_FMT_FAILED", "Failed to format markdown")
+	ErrMermaidGenFailed  = apperr.NewHTTPError(http.StatusInternalServerError, "MERMAID_GEN_FAILED", "Failed to generate Mermaid diagram")
 	ErrOcrFailed         = apperr.NewHTTPError(http.StatusInternalServerError, "OCR_FAILED", "Failed to extract text from image")
 	ErrSmartChatFailed   = apperr.NewHTTPError(http.StatusInternalServerError, "SMART_CHAT_FAILED", "Failed to generate chat reply suggestions")
 	ErrSummaryFailed     = apperr.NewHTTPError(http.StatusInternalServerError, "SUMMARY_FAILED", "Failed to generate summary")
@@ -122,6 +123,17 @@ type MarkdownFormatData struct {
 
 // MarkdownFormatResp contains the formatted markdown content
 type MarkdownFormatResp struct {
+	Content string `json:"content"`
+}
+
+// MermaidGeneratorData contains request data for Mermaid diagram generation
+type MermaidGeneratorData struct {
+	Description string `json:"description" validate:"required"`
+	DiagramType string `json:"diagram_type" validate:"required,oneof=auto flowchart sequenceDiagram classDiagram stateDiagram erDiagram journey gantt mindmap"`
+}
+
+// MermaidGeneratorResp contains Mermaid chart source generated from a prompt
+type MermaidGeneratorResp struct {
 	Content string `json:"content"`
 }
 
