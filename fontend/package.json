@@ -6,8 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:prod": "vite build",
-    "build:local": "vite build --mode development",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -26,6 +26,11 @@ type Configuration struct {
 	APIDocsPath     string   `env:"API_DOCS_PATH" envDefault:"docs"`
 	AppID           string   `env:"APP_ID" envDefault:"vibe-tools"`
 
+	// Frontend runtime configuration exposed to the embedded SPA.
+	APIBaseURL     string `env:"API_BASE_URL" envDefault:"http://localhost:8080"`
+	MarkdownAPIURL string `env:"MARKDOWN_API_URL"`
+	MarkdownAPIKey string `env:"MARKDOWN_API_KEY"`
+
 	// LLM shared configuration – applies to whichever provider is active.
 	LLMProvider        string `env:"LLM_PROVIDER" envDefault:"openai"` // "openai" or "genai"
 	LLMTextModel       string `env:"LLM_TEXT_MODEL" envDefault:"gpt-5.5"`

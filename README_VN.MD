@@ -121,6 +121,7 @@ docker run -d \
   -e LLM_PROVIDER=openai \
   -e LLM_MAX_INPUT_TOKENS=12000 \
   -e LLM_LIMIT_TOKEN_USAGE=10000000 \
+  -e API_BASE_URL="http://localhost:8080" \
   -e OPENAI_API_KEY="your_openai_api_key" \
   -e OPENAI_BASE_URL="your_openai_base_url" \
   ghcr.io/kevinxvu/vibe-tools:latest
@@ -145,6 +146,7 @@ services:
       LLM_PROVIDER: openai
       LLM_MAX_INPUT_TOKENS: "12000"
       LLM_LIMIT_TOKEN_USAGE: "10000000"
+      API_BASE_URL: "http://localhost:8080"
       OPENAI_API_KEY: "your_openai_api_key"
       OPENAI_BASE_URL: "your_openai_base_url"
     restart: unless-stopped
@@ -156,7 +158,7 @@ Khởi động app:
 docker compose up -d
 ```
 
-Thay `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `LLM_TEXT_MODEL`, `LLM_AUDIO_MODEL` bằng API key và Base URL thực tế trước khi expose app.
+Thay `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `LLM_TEXT_MODEL`, `LLM_AUDIO_MODEL` bằng giá trị thực tế trước khi expose app. Giữ `API_BASE_URL` rỗng khi frontend nhúng và backend dùng cùng origin.
 
 Xem toàn bộ tùy chọn cấu hình tại [Configuration Reference](docs/TECHNICAL.md#configuration-reference).
 

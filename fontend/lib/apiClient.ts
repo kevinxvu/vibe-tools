@@ -1,14 +1,15 @@
 import axios, { AxiosError } from 'axios';
+import { getRuntimeConfig } from './runtimeConfig';
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: getRuntimeConfig('API_BASE_URL'),
   timeout: 300_000, // 5 minutes — accommodate large file transcription
 });
 
 // Request interceptor — inject X-App-Id header from env
 apiClient.interceptors.request.use(
   (config) => {
-    const appId = import.meta.env.VITE_APP_ID;
+    const appId = getRuntimeConfig('APP_ID');
     if (appId) {
       config.headers['X-App-Id'] = appId;
     }
