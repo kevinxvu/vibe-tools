@@ -1,6 +1,7 @@
 package router
 
 import (
+	"encoding/json"
 	"io/fs"
 	"mime"
 	"net/http"
@@ -35,8 +36,32 @@ func RegisterRoutes(app *di.Application) {
 	llmV1Router := v1Router.Group("/llm", secure.VerifyHeader("X-App-Id", app.Config.AppID))
 	llm.NewHTTP(app.LLMSvc, app.Auth, llmV1Router)
 
+	// Runtime frontend config is served by the backend so the embedded SPA can use the same environment as this service.
+	app.Server.GET("/runtime-config.js", runtimeConfig(app))
+
 	// Serve frontend SPA (must be registered last to not shadow API routes)
 	serveFrontend(app.Server)
+}
+
+func runtimeConfig(app *di.Application) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		config := map[string]string{
+			"API_BASE_URL":     app.Config.APIBaseURL,
+			"APP_ID":           app.Config.AppID,
+			"MARKDOWN_API_URL": app.Config.MarkdownAPIURL,
+			"MARKDOWN_API_KEY": app.Config.MarkdownAPIKey,
+		}
+
+		payload, err := json.Marshal(config)
+		if err != nil {
+			return err
+		}
+
+		c.Response().Header().Set(echo.HeaderContentType, "application/javascript; charset=utf-8")
+		c.Response().Header().Set(echo.HeaderCacheControl, "no-store, no-cache, must-revalidate, proxy-revalidate")
+		c.Response().Header().Set("Pragma", "no-cache")
+		return c.Blob(http.StatusOK, "application/javascript; charset=utf-8", []byte("window.__APP_CONFIG__ = "+string(payload)+";"))
+	}
 }
 
 // serveFrontend serves the embedded frontend SPA.

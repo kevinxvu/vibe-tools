@@ -120,6 +120,7 @@ docker run -d \
   -e LLM_PROVIDER=openai \
   -e LLM_MAX_INPUT_TOKENS=12000 \
   -e LLM_LIMIT_TOKEN_USAGE=10000000 \
+  -e API_BASE_URL="http://localhost:8080" \
   -e OPENAI_API_KEY="your_openai_api_key" \
   -e OPENAI_BASE_URL="your_openai_base_url" \
   ghcr.io/kevinxvu/vibe-tools:latest
@@ -144,6 +145,7 @@ services:
       LLM_PROVIDER: openai
       LLM_MAX_INPUT_TOKENS: "12000"
       LLM_LIMIT_TOKEN_USAGE: "10000000"
+      API_BASE_URL: "http://localhost:8080"
       OPENAI_API_KEY: "your_openai_api_key"
       OPENAI_BASE_URL: "your_openai_base_url"
     restart: unless-stopped
@@ -155,7 +157,7 @@ Start the app:
 docker compose up -d
 ```
 
-Replace `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `LLM_TEXT_MODEL`, `LLM_AUDIO_MODEL` with your actual API key and Base URL before exposing the app.
+Replace `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `LLM_TEXT_MODEL`, `LLM_AUDIO_MODEL` with your actual values before exposing the app. Keep `API_BASE_URL` empty when the embedded frontend and backend share the same origin.
 
 For all available options, see the [Configuration Reference](docs/TECHNICAL.md#configuration-reference).
 

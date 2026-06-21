@@ -178,6 +178,19 @@ Environment variable priority: **OS env > `.env` > `.env.local`**
 | `DB_LOG` | `false` | Enable GORM SQL query logging. |
 | `APP_ID` | `vibetools` | Application identifier. |
 
+### Frontend Runtime Config
+
+The embedded React SPA does not use `fontend/.env.*` files. Frontend deployment config is loaded at runtime from the Go backend route `/runtime-config.js`, which serializes selected values from `config.Configuration`.
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `API_BASE_URL` | empty | Optional frontend API base URL. Leave empty when the SPA and API share the same origin. |
+| `APP_ID` | `vibe-tools` | Sent by the frontend as `X-App-Id` for protected API routes. |
+| `MARKDOWN_API_URL` | empty | Optional external Markdown Parser API base URL. |
+| `MARKDOWN_API_KEY` | empty | Optional external Markdown Parser API key. This is public if exposed to the browser. |
+
+`fontend/public/runtime-config.js` contains an empty fallback config for standalone Vite/dev usage. If `/runtime-config.js` cannot be loaded, the SPA still boots with empty config values; API-dependent features may fail only when used. In Vite dev, `/api` is proxied to `http://localhost:8080`, while `/runtime-config.js` is served from the local fallback file.
+
 ### API Docs
 
 | Variable | Default | Description |
@@ -297,14 +310,15 @@ var dist embed.FS
 
 The SPA fallback route is registered **last** in `internal/api/router/router.go` so API routes are not shadowed.
 
+Runtime frontend config is served before the SPA catch-all via `/runtime-config.js`. Keep this route registered before `serveFrontend()` and keep deployment config in backend env keys (`API_BASE_URL`, `APP_ID`, `MARKDOWN_API_URL`, `MARKDOWN_API_KEY`), not in `fontend/.env.*` files.
+
 ### Frontend Dev Commands
 
 ```bash
 cd fontend
 make install        # npm install
 make dev            # Dev server → http://localhost:3000
-make build-local    # Build with .env.development
-make build-prod     # Build with .env.production
+make build          # Build production bundle
 make check          # TypeScript type check
 ```
 
@@ -314,8 +328,6 @@ Or from project root:
 make fe.install
 make fe.dev
 make fe.build
-make fe.build-local
-make fe.build-prod
 ```
 
 ### Adding a New Tool (Frontend)

@@ -1,4 +1,4 @@
-.PHONY: help install dev build build-prod build-local preview clean test check format docker-build docker-run docker-stop docker-logs docker-export docker-import docker-clean docker-up docker-down
+.PHONY: help install dev build preview clean test check format docker-build docker-run docker-stop docker-logs docker-export docker-import docker-clean docker-up docker-down
 
 # Docker configuration
 DOCKER_IMAGE_NAME = vibetools
@@ -19,9 +19,7 @@ help:
 	@echo ""
 	@echo "🚀 Development:"
 	@echo "  make dev           - Chạy dev server (http://localhost:5173)"
-	@echo "  make build         - Build production (mặc định)"
-	@echo "  make build-prod    - Build với PROD API URL (.env.production)"
-	@echo "  make build-local   - Build với LOCAL API URL (.env.development)"
+	@echo "  make build         - Build production"
 	@echo "  make preview       - Preview production build"
 	@echo ""
 	@echo "🔍 Code Quality:"
@@ -59,20 +57,6 @@ dev:
 build:
 	@echo "🏗️  Building for production..."
 	npm run build
-	@echo "✅ Build complete! Output: dist/"
-
-# Build with production API URL
-build-prod:
-	@echo "🏗️  Building for production (PROD API)..."
-	@echo "📡 API: $$(grep VITE_API_BASE_URL .env.production | cut -d= -f2)"
-	npm run build:prod
-	@echo "✅ Build complete! Output: dist/"
-
-# Build with local API URL
-build-local:
-	@echo "🏗️  Building with local API URL..."
-	@echo "📡 API: $$(grep VITE_API_BASE_URL .env.development | cut -d= -f2)"
-	npm run build:local
 	@echo "✅ Build complete! Output: dist/"
 
 # Preview production build

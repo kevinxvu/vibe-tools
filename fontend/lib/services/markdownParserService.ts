@@ -1,12 +1,13 @@
 import axios from 'axios';
+import { getRuntimeConfig } from '../runtimeConfig';
 
 // ── Dedicated Axios instance for the Markdown Parser API ───────────────────────
 // This service targets a separate server from the main LLM backend.
-// Base URL: VITE_MARKDOWN_API_URL (e.g. https://api.genzdev.net)
-// Auth: x-api-key header (VITE_MARKDOWN_API_KEY)
+// Base URL: MARKDOWN_API_URL (e.g. https://api.genzdev.net)
+// Auth: x-api-key header (MARKDOWN_API_KEY)
 
-const MARKDOWN_API_BASE_URL = import.meta.env.VITE_MARKDOWN_API_URL as string;
-const MARKDOWN_API_KEY = import.meta.env.VITE_MARKDOWN_API_KEY as string;
+const MARKDOWN_API_BASE_URL = getRuntimeConfig('MARKDOWN_API_URL');
+const MARKDOWN_API_KEY = getRuntimeConfig('MARKDOWN_API_KEY');
 
 const markdownApiClient = axios.create({
   baseURL: MARKDOWN_API_BASE_URL,

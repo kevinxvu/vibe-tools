@@ -152,16 +152,6 @@ fe.build: ## Build frontend for production
 	cd fontend && npm run build
 	@echo "✅ Build complete! Output: fontend/dist/"
 
-fe.build-prod: ## Build frontend with PROD API URL (.env.production)
-	@echo "🏗️  Building frontend for production (PROD API)..."
-	cd fontend && npm run build:prod
-	@echo "✅ Build complete! Output: fontend/dist/"
-
-fe.build-local: ## Build frontend with LOCAL API URL (.env.development)
-	@echo "🏗️  Building frontend with local API URL..."
-	cd fontend && npm run build:local
-	@echo "✅ Build complete! Output: fontend/dist/"
-
 fe.preview: ## Preview frontend production build
 	cd fontend && npm run preview
 

@@ -13,8 +13,8 @@ RUN npm ci --only=production=false
 # Copy source code
 COPY . .
 
-# Build the application (production mode - uses .env.production)
-RUN npm run build:prod
+# Build the application. Runtime config is served by the backend in the embedded deployment.
+RUN npm run build
 
 # Production stage
 FROM nginx:1.27-alpine
