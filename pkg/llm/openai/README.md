@@ -9,7 +9,7 @@ A reusable OpenAI service package for Go that provides easy access to OpenAI's A
 
 ## Configuration
 
-Environment variables (OS env > `.env.local` > `.env`):
+Environment variables (OS env > `.env` > `.env.local`):
 
 ```env
 # Required

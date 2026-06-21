@@ -6,6 +6,8 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTheme } from '../context/ThemeContext';
 
+let mermaidRenderQueue: Promise<unknown> = Promise.resolve();
+
 // ── Mermaid Lightbox ───────────────────────────────────────────────────────────
 
 const MermaidLightbox: React.FC<{ svg: string; onClose: () => void }> = ({ svg, onClose }) => {
@@ -73,7 +75,7 @@ const MermaidBlock: React.FC<{ code: string }> = ({ code }) => {
   const [error, setError] = useState<string>('');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const { theme } = useTheme();
-  const idRef = useRef(`mermaid-${Math.random().toString(36).substr(2, 9)}`);
+  const renderCountRef = useRef(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -82,12 +84,18 @@ const MermaidBlock: React.FC<{ code: string }> = ({ code }) => {
 
     const render = async () => {
       try {
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: theme === 'dark' ? 'dark' : 'default',
-          securityLevel: 'strict',
+        const renderId = `mermaid-${Math.random().toString(36).slice(2, 9)}-${renderCountRef.current++}`;
+        const renderTask = mermaidRenderQueue.then(async () => {
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: theme === 'dark' ? 'dark' : 'default',
+            securityLevel: 'strict',
+          });
+          const { svg: nextSvg } = await mermaid.render(renderId, code.trim());
+          return nextSvg;
         });
-        const { svg: rendered } = await mermaid.render(idRef.current, code.trim());
+        mermaidRenderQueue = renderTask.catch(() => undefined);
+        const rendered = await renderTask;
         if (!cancelled) setSvg(rendered);
       } catch (e: any) {
         if (!cancelled) setError(e?.message ?? 'Failed to render diagram');

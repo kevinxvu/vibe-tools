@@ -199,6 +199,10 @@
     "markdown-parser": {
       "name": "Markdown Parser",
       "description": "Chuyển đổi HTML, văn bản, URL website và file (DOC, XLSX, PDF) sang Markdown sạch."
+    },
+    "mermaid-generator": {
+      "name": "Mermaid Generator & Live Preview",
+      "description": "Tạo Mermaid chart từ mô tả, rồi chỉnh source cạnh live preview."
     }
   },
   "tools": {
@@ -461,6 +465,21 @@
       "failedToSave": "Lưu file thất bại",
       "editor": "Soạn thảo",
       "preview": "Xem trước"
+    },
+    "mermaidGenerator": {
+      "pageTitle": "Mermaid Generator & Live Preview",
+      "pageDescription": "Tạo Mermaid chart từ mô tả bằng bất kỳ ngôn ngữ nào, rồi chỉnh source cạnh live preview.",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Mô tả flow, kiến trúc, sequence, quan hệ database, roadmap hoặc mind map bằng bất kỳ ngôn ngữ nào...",
+      "diagramType": "Loại sơ đồ",
+      "generate": "Tạo Mermaid",
+      "generating": "Đang tạo...",
+      "generated": "Đã tạo Mermaid diagram",
+      "generateFailed": "Tạo Mermaid diagram thất bại.",
+      "copied": "Đã sao chép Mermaid source vào clipboard",
+      "editTab": "Chỉnh sửa",
+      "previewTab": "Live Preview",
+      "fullScreenPreview": "Xem trước toàn màn hình"
     },
     "htmlViewer": {
       "pageTitle": "HTML Viewer & Editor",

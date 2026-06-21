@@ -37,6 +37,7 @@ import { AiTranscriber } from './pages/AiTranscriber';
 import { AiTranslator } from './pages/AiTranslator';
 import { LogAnalyzer } from './pages/LogAnalyzer';
 import { MarkdownParser } from './pages/MarkdownParser';
+import { MermaidGenerator } from './pages/MermaidGenerator';
 import { Login } from './pages/Login';
 import { Donate } from './pages/Donate';
 
@@ -85,6 +86,7 @@ const App: React.FC = () => {
                   <Route path="/tools/ai-translator" element={<AiTranslator />} />
                   <Route path="/tools/log-analyzer" element={<LogAnalyzer />} />
                   <Route path="/tools/markdown-parser" element={<MarkdownParser />} />
+                  <Route path="/tools/mermaid-generator" element={<MermaidGenerator />} />
                   {/* Fallback route */}
                   <Route path="*" element={<Dashboard />} />
                 </Routes>

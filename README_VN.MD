@@ -24,7 +24,7 @@ VibeTools thay thế 17 tab trình duyệt bạn mở mỗi ngày — JSON forma
 
 ## Tính Năng
 
-- **29 tools** thuộc hai nhóm AI và developer
+- **30 tools** thuộc hai nhóm AI và developer
 - **AI tools** hỗ trợ OpenAI, Google Gemini, hoặc Vertex AI
 - **Dev tools** chạy hoàn toàn trên trình duyệt — dữ liệu không rời máy bạn
 - **Single binary** — Go backend với React SPA nhúng bên trong
@@ -61,7 +61,7 @@ make dev         # Chạy server với hot reload
 
 ## AI Tools
 
-AI tools gọi tới LLM provider bạn đã cấu hình. Xem [Tự Host](#tự-host) để thiết lập.
+AI tools gọi tới LLM provider bạn đã cấu hình. Xem [LLM (AI Features)](docs/TECHNICAL.md#llm-ai-features) để thiết lập.
 
 | Tool | Mô tả |
 | --- | --- |
@@ -74,6 +74,7 @@ AI tools gọi tới LLM provider bạn đã cấu hình. Xem [Tự Host](#tự-
 | **OCR Tool** | Trích xuất văn bản từ ảnh — screenshot, tài liệu scan, ảnh chụp bảng trắng. |
 | **Markdown Format** | Dọn markdown lộn xộn hoặc sai định dạng thành phiên bản nhất quán. |
 | **Markdown Parser** | Chuyển đổi HTML, plain text, URL, hoặc file (DOC, XLSX, PDF) sang Markdown sạch. |
+| **Mermaid Generator & Live Preview** | Tạo Mermaid diagram từ mô tả, rồi chỉnh source cạnh live preview. |
 
 ---
 

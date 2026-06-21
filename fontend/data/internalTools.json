@@ -317,5 +317,16 @@
     "isInternal": true,
     "isEnable": true,
     "order": 29
+  },
+  {
+    "id": "mermaid-generator",
+    "name": "Mermaid Generator & Live Preview",
+    "description": "Generate Mermaid charts from descriptions, then edit source beside a live preview.",
+    "categories": ["AI", "Frontend", "Utility"],
+    "url": "/tools/mermaid-generator",
+    "iconName": "Workflow",
+    "isInternal": true,
+    "isEnable": true,
+    "order": 30
   }
 ]
