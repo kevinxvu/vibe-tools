@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="fontend/public/logo.png" alt="VibeTools Logo" width="120" />
+
 # VibeTools
 
 **Hộp công cụ all-in-one cho developer. AI utilities và dev tools kinh điển, gói gọn trong một app tự host.**
@@ -24,7 +26,7 @@ VibeTools thay thế 17 tab trình duyệt bạn mở mỗi ngày — JSON forma
 
 ## Tính Năng
 
-- **30 tools** thuộc hai nhóm AI và developer
+- **31 tools** thuộc hai nhóm AI và developer
 - **AI tools** hỗ trợ OpenAI, Google Gemini, hoặc Vertex AI
 - **Dev tools** chạy hoàn toàn trên trình duyệt — dữ liệu không rời máy bạn
 - **Single binary** — Go backend với React SPA nhúng bên trong
@@ -105,6 +107,7 @@ Tất cả dev tools chạy cục bộ trên trình duyệt. Không có dữ li�
 | **Snowflake Generator** | Tạo Snowflake ID và giải mã timestamp cùng machine ID nhúng bên trong. |
 | **Timestamp Converter** | Chuyển đổi giữa Unix, milliseconds và datetime RFC3339. |
 | **Log Analyzer** | Xem và lọc structured JSON log (SQL, API) dạng bảng gọn gàng. |
+| **QR Generator & Reader** | Tạo mã QR tùy chỉnh với logo/watermark, và đọc mã QR từ hình ảnh qua upload hoặc paste. |
 
 ---
 

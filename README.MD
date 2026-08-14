@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="fontend/public/logo.png" alt="VibeTools Logo" width="120" />
+
 # VibeTools
 
 **An all-in-one developer toolbox. AI-powered utilities and classic dev tools, in one self-hosted app.**
@@ -24,7 +26,7 @@ VibeTools replaces the 17 browser tabs you open every day — JSON formatter, JW
 
 ## Features
 
-- **30 tools** across AI and developer categories
+- **31 tools** across AI and developer categories
 - **AI tools** powered by OpenAI, Google Gemini, or Vertex AI
 - **Dev tools** run entirely in the browser — no data leaves your machine
 - **Single binary** — Go backend with the React SPA embedded inside
@@ -104,6 +106,7 @@ All dev tools run locally in the browser. No data is sent to any server.
 | **Snowflake Generator** | Generate Snowflake IDs and decode the embedded timestamp and machine ID. |
 | **Timestamp Converter** | Convert between Unix, milliseconds, and RFC3339 datetime formats. |
 | **Log Analyzer** | View and filter structured JSON logs (SQL, API) in a clean table layout. |
+| **QR Generator & Reader** | Generate customizable QR codes with logo/watermark, and decode QR codes from images via upload or paste. |
 
 ---
 

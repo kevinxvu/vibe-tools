@@ -40,6 +40,7 @@ import { MarkdownParser } from './pages/MarkdownParser';
 import { MermaidGenerator } from './pages/MermaidGenerator';
 import { Login } from './pages/Login';
 import { Donate } from './pages/Donate';
+import { QrTool } from './pages/QrTool';
 
 const App: React.FC = () => {
   return (
@@ -87,6 +88,7 @@ const App: React.FC = () => {
                   <Route path="/tools/log-analyzer" element={<LogAnalyzer />} />
                   <Route path="/tools/markdown-parser" element={<MarkdownParser />} />
                   <Route path="/tools/mermaid-generator" element={<MermaidGenerator />} />
+                  <Route path="/tools/qr-tool" element={<QrTool />} />
                   {/* Fallback route */}
                   <Route path="*" element={<Dashboard />} />
                 </Routes>

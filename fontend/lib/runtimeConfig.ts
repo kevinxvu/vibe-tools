@@ -13,6 +13,13 @@ declare global {
 
 const runtimeConfig = window.__APP_CONFIG__ ?? {};
 
+const DEFAULTS: Partial<RuntimeConfig> = {
+  API_BASE_URL: window.location.origin,
+  APP_ID: 'vibe-tools',
+  MARKDOWN_API_URL: '',
+  MARKDOWN_API_KEY: '',
+};
+
 export const getRuntimeConfig = (key: keyof RuntimeConfig): string => {
-  return runtimeConfig[key] || '';
+  return runtimeConfig[key] || DEFAULTS[key] || '';
 };
