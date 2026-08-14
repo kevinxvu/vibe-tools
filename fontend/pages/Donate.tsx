@@ -152,7 +152,17 @@ export const Donate: React.FC = () => {
         {/* Footer Note */}
         <div className="text-center mt-8 text-sm text-slate-500 dark:text-slate-400">
           <p>{t('donate.freeProject')}</p>
-          <p className="mt-1">{t('donate.builtWithLove')}</p>
+          <p className="mt-1">
+            {t('donate.builtWithLove')}{' '}
+            <a
+              href="https://genzdev.net"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+            >
+              Kevin Vu
+            </a>
+          </p>
         </div>
       </div>
     </div>

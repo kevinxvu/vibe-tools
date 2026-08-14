@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Terminal, Moon, Sun, Menu, LogOut, User as UserIcon, Heart, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { Moon, Sun, Menu, LogOut, User as UserIcon, Heart, PanelLeftClose, PanelLeftOpen, Github } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { useSidebar } from '../context/SidebarContext';
@@ -48,16 +48,14 @@ export const Navbar: React.FC = () => {
           </button>
 
           <Link to="/" className="flex items-center gap-2 font-bold text-xl text-slate-900 dark:text-white hover:opacity-80 transition-opacity">
-            <div className="bg-indigo-600 text-white p-1.5 rounded-lg">
-              <Terminal size={20} />
-            </div>
+            <img src="/logo.png" alt="VibeTools Logo" className="h-8 w-auto" />
             <span>VibeTools</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-1 ml-4">
-            <a href="https://genzdev.net" target="_blank" rel="noopener noreferrer">
+            <Link to="/">
               <Button variant="ghost" size="sm">{t('nav.home')}</Button>
-            </a>
+            </Link>
             <Link to="/donate">
               <Button variant="ghost" size="sm" className="gap-1.5 text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300">
                 <Heart size={16} className="fill-current" />
@@ -69,6 +67,15 @@ export const Navbar: React.FC = () => {
 
         <div className="flex items-center gap-2">
           <LangDropdown />
+          <a
+            href="https://github.com/kevinxvu/vibe-tools"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="GitHub"
+            className="flex items-center justify-center w-9 h-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            <Github size={18} />
+          </a>
           <Button
             variant="ghost"
             size="sm"
@@ -112,9 +119,9 @@ export const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-4 space-y-2">
-          <a href="https://genzdev.net" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>
+          <Link to="/" onClick={() => setIsMenuOpen(false)}>
             <Button variant="ghost" className="w-full justify-start">{t('nav.home')}</Button>
-          </a>
+          </Link>
           <Link to="/donate" onClick={() => setIsMenuOpen(false)}>
             <Button variant="ghost" className="w-full justify-start gap-2 text-rose-600 dark:text-rose-400">
               <Heart size={16} className="fill-current" />
