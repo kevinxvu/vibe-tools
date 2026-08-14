@@ -133,7 +133,7 @@ export const Dashboard: React.FC = () => {
           )}
 
           {/* Tool grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredTools.map(tool => {
               const Icon = ICON_MAP[tool.iconName] || Globe;
               return (
