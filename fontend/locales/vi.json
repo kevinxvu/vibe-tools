@@ -203,6 +203,10 @@
     "mermaid-generator": {
       "name": "Mermaid Generator & Live Preview",
       "description": "Tạo Mermaid chart từ mô tả, rồi chỉnh source cạnh live preview."
+    },
+    "qr-tool": {
+      "name": "QR Generator & Reader",
+      "description": "Tạo mã QR tùy chỉnh với logo/watermark, và giải mã mã QR từ hình ảnh."
     }
   },
   "tools": {
@@ -480,6 +484,45 @@
       "editTab": "Chỉnh sửa",
       "previewTab": "Live Preview",
       "fullScreenPreview": "Xem trước toàn màn hình"
+    },
+    "qrTool": {
+      "pageTitle": "QR Generator & Reader",
+      "pageDescription": "Tạo mã QR với màu sắc và logo tùy chỉnh, hoặc giải mã mã QR từ hình ảnh.",
+      "tabGenerator": "Tạo mã QR",
+      "tabReader": "Đọc mã QR",
+      "inputLabel": "Văn bản / URL",
+      "inputPlaceholder": "Nhập văn bản, URL, số điện thoại, email...",
+      "options": "Tùy chọn",
+      "size": "Kích thước",
+      "ecc": "Mức sửa lỗi",
+      "eccLockedH": "Khóa ở mức H khi dùng logo",
+      "colorDark": "Màu QR",
+      "colorLight": "Màu nền",
+      "margin": "Viền",
+      "logoTitle": "Logo / Watermark",
+      "logoHint": "Tải logo lên để chèn vào giữa mã QR. Mức ECC sẽ tự chuyển sang H.",
+      "logoUpload": "Tải logo (PNG / SVG)",
+      "logoActive": "Logo đang hoạt động",
+      "removeLogo": "Xóa logo",
+      "generating": "Đang tạo...",
+      "previewPlaceholder": "Nhập nội dung ở trên để tạo mã QR",
+      "download": "Tải PNG",
+      "copyImage": "Sao chép hình",
+      "downloaded": "Đã tải mã QR!",
+      "imageCopied": "Đã sao chép hình QR vào clipboard",
+      "copyFailed": "Sao chép hình thất bại",
+      "generateFailed": "Tạo mã QR thất bại",
+      "readerUploadTitle": "Tải lên hoặc dán ảnh QR",
+      "readerDragHint": "Kéo thả vào đây, hoặc",
+      "readerBrowse": "chọn file",
+      "readerPasteHint": "(Bạn có thể Ctrl+V để dán từ clipboard)",
+      "readerResult": "Kết quả giải mã",
+      "readerWaiting": "Tải ảnh QR lên để giải mã",
+      "decoding": "Đang giải mã...",
+      "decodeSuccess": "Đã giải mã mã QR!",
+      "decodeNoQr": "Không tìm thấy mã QR trong hình ảnh này",
+      "decodeErrorHint": "Hãy đảm bảo hình ảnh chứa mã QR rõ ràng và thử lại.",
+      "openLink": "Mở liên kết"
     },
     "htmlViewer": {
       "pageTitle": "HTML Viewer & Editor",

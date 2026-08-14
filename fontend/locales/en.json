@@ -203,6 +203,10 @@
     "mermaid-generator": {
       "name": "Mermaid Generator & Live Preview",
       "description": "Generate Mermaid charts from descriptions, then edit source beside a live preview."
+    },
+    "qr-tool": {
+      "name": "QR Generator & Reader",
+      "description": "Generate customizable QR codes with logo/watermark support, and decode QR codes from images."
     }
   },
   "tools": {
@@ -861,6 +865,45 @@
       "copiedToast": "Markdown copied to clipboard",
       "downloadedToast": "Markdown file downloaded",
       "fileTooLarge": "File is too large (> 20MB). Please use a smaller file."
+    },
+    "qrTool": {
+      "pageTitle": "QR Generator & Reader",
+      "pageDescription": "Generate QR codes with custom colors and logo, or decode QR codes from images.",
+      "tabGenerator": "Generator",
+      "tabReader": "Reader",
+      "inputLabel": "Text / URL",
+      "inputPlaceholder": "Enter text, URL, phone number, email...",
+      "options": "Options",
+      "size": "Size",
+      "ecc": "Error Correction",
+      "eccLockedH": "Locked to H when logo is active",
+      "colorDark": "QR Color",
+      "colorLight": "Background",
+      "margin": "Margin",
+      "logoTitle": "Logo / Watermark",
+      "logoHint": "Upload a logo to embed in the center. ECC will auto-switch to H.",
+      "logoUpload": "Upload Logo (PNG / SVG)",
+      "logoActive": "Logo active",
+      "removeLogo": "Remove logo",
+      "generating": "Generating...",
+      "previewPlaceholder": "Enter text above to generate a QR code",
+      "download": "Download PNG",
+      "copyImage": "Copy Image",
+      "downloaded": "QR code downloaded!",
+      "imageCopied": "QR image copied to clipboard",
+      "copyFailed": "Failed to copy image",
+      "generateFailed": "Failed to generate QR code",
+      "readerUploadTitle": "Upload or Paste a QR Image",
+      "readerDragHint": "Drag & drop here, or",
+      "readerBrowse": "browse files",
+      "readerPasteHint": "(You can also Ctrl+V to paste from clipboard)",
+      "readerResult": "Decoded Result",
+      "readerWaiting": "Upload a QR image to decode it",
+      "decoding": "Decoding...",
+      "decodeSuccess": "QR code decoded!",
+      "decodeNoQr": "No QR code found in this image",
+      "decodeErrorHint": "Make sure the image contains a clear QR code and try again.",
+      "openLink": "Open Link"
     }
   }
 }

@@ -328,5 +328,16 @@
     "isInternal": true,
     "isEnable": true,
     "order": 30
+  },
+  {
+    "id": "qr-tool",
+    "name": "QR Generator \u0026 Reader",
+    "description": "Generate customizable QR codes with logo/watermark support, and decode QR codes from images.",
+    "categories": ["Utility"],
+    "url": "/tools/qr-tool",
+    "iconName": "QrCode",
+    "isInternal": true,
+    "isEnable": true,
+    "order": 31
   }
 ]
