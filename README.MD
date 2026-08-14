@@ -16,7 +16,7 @@
 
 ---
 
-VibeTools replaces the 17 browser tabs you open every day — JSON formatter, JWT decoder, AI summarizer, HTTP client, and more — with a single self-hosted app. No accounts, no telemetry, no internet required after setup.
+VibeTools replaces the 31 browser tabs you open every day — JSON formatter, JWT decoder, AI summarizer, HTTP client, QR generator, and more — with a single self-hosted app. No accounts, no telemetry, no internet required after setup.
 
 **Live demo:** [https://tool.genzdev.net](https://tool.genzdev.net)
 
