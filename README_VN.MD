@@ -16,7 +16,7 @@
 
 ---
 
-VibeTools thay thế 17 tab trình duyệt bạn mở mỗi ngày — JSON formatter, JWT decoder, AI summarizer, HTTP client, v.v. — bằng một app duy nhất tự host. Không tài khoản, không telemetry, không cần internet sau khi cài xong.
+VibeTools thay thế 31 tab trình duyệt bạn mở mỗi ngày — JSON formatter, JWT decoder, AI summarizer, HTTP client, QR generator, v.v. — bằng một app duy nhất tự host. Không tài khoản, không telemetry, không cần internet sau khi cài xong.
 
 **Demo:** [https://tool.genzdev.net](https://tool.genzdev.net)
 
