@@ -148,7 +148,7 @@ export const EmailGenerator: React.FC = () => {
 
         {/* Right: Output */}
         <div className="lg:w-2/3 flex flex-col lg:min-h-0 min-w-0">
-          <Card className="h-full flex flex-col p-0 overflow-hidden border-2 border-indigo-100 dark:border-slate-700 bg-white dark:bg-slate-900">
+          <Card className="min-h-[260px] h-[320px] lg:h-full flex flex-col p-0 overflow-hidden border-2 border-indigo-100 dark:border-slate-700 bg-white dark:bg-slate-900">
             <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
                 Generated Result 

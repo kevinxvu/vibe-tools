@@ -359,7 +359,7 @@ export const HtmlViewer: React.FC = () => {
             </div>
           </div>
 
-          <Card className="flex-1 flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors h-[400px] lg:h-auto">
+          <Card className="min-h-[280px] h-[400px] lg:h-auto lg:flex-1 flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors">
              <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                <span className="text-xs font-semibold text-slate-500 uppercase">{t('tools.htmlViewer.htmlSource')}</span>
                <Input 
@@ -379,7 +379,7 @@ export const HtmlViewer: React.FC = () => {
 
         {/* Right: Preview / Tree */}
         <div className="lg:w-1/2 flex flex-col lg:min-h-0 min-w-0">
-           <Card className="h-[500px] lg:h-full flex flex-col p-0 overflow-hidden bg-white dark:bg-slate-900 border-2 border-indigo-50 dark:border-slate-800">
+           <Card className="min-h-[300px] h-[500px] lg:h-full flex flex-col p-0 overflow-hidden bg-white dark:bg-slate-900 border-2 border-indigo-50 dark:border-slate-800">
              <div className="bg-slate-50 dark:bg-slate-800/50 px-2 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                <div className="flex bg-slate-200 dark:bg-slate-700 rounded-lg p-1">
                  <button 

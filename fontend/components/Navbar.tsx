@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Moon, Sun, Menu, LogOut, User as UserIcon, Heart, PanelLeftClose, PanelLeftOpen, Github } from 'lucide-react';
+import { Moon, Sun, Menu, X, LogOut, User as UserIcon, Heart, PanelLeftClose, PanelLeftOpen, Github, Home, Globe } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { useSidebar } from '../context/SidebarContext';
@@ -26,8 +26,8 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <div className="w-full pl-2 pr-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="w-full pl-2 pr-3 sm:pr-4 h-16 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
           {/* Sidebar toggle */}
           <button
             onClick={toggle}
@@ -47,9 +47,9 @@ export const Navbar: React.FC = () => {
             }
           </button>
 
-          <Link to="/" className="flex items-center gap-2 font-bold text-xl text-slate-900 dark:text-white hover:opacity-80 transition-opacity">
-            <img src="/logo.png" alt="VibeTools Logo" className="h-8 w-auto" />
-            <span>VibeTools</span>
+          <Link to="/" className="flex items-center gap-1.5 sm:gap-2 font-bold text-lg sm:text-xl text-slate-900 dark:text-white hover:opacity-80 transition-opacity min-w-0">
+            <img src="/logo.png" alt="VibeTools Logo" className="h-7 sm:h-8 w-auto flex-shrink-0" />
+            <span className="truncate">VibeTools</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-1 ml-4">
@@ -65,14 +65,14 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
           <LangDropdown />
           <a
             href="https://github.com/kevinxvu/vibe-tools"
             target="_blank"
             rel="noopener noreferrer"
             title="GitHub"
-            className="flex items-center justify-center w-9 h-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="hidden sm:flex items-center justify-center w-9 h-8 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors flex-shrink-0"
           >
             <Github size={18} />
           </a>
@@ -80,76 +80,71 @@ export const Navbar: React.FC = () => {
             variant="ghost"
             size="sm"
             onClick={toggleTheme}
-            className="rounded-lg w-9 h-8 p-0 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+            className="rounded-lg w-8 sm:w-9 h-8 p-0 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex-shrink-0"
+            title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
           >
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </Button>
 
-          {/* Login/logout buttons hidden
-          <div className="hidden md:block">
-            {user ? (
-               <div className="flex items-center gap-3 ml-2">
-                 <span className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden lg:block">
-                   {user.email}
-                 </span>
-                 <Button variant="ghost" size="sm" onClick={handleLogout} className="text-red-500 hover:text-red-600 hover:bg-red-50">
-                   <LogOut size={16} />
-                 </Button>
-               </div>
-            ) : (
-              <Link to="/login">
-                <Button variant="primary" size="sm" className="gap-2">
-                  <UserIcon size={16} />
-                  <span>{t('nav.login')}</span>
-                </Button>
-              </Link>
-            )}
-          </div>
-          */}
-
           <button
-            className="md:hidden p-2 text-slate-600 dark:text-slate-300"
+            className="md:hidden p-1.5 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex-shrink-0"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle navigation menu"
           >
-            <Menu size={24} />
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-4 space-y-2">
-          <Link to="/" onClick={() => setIsMenuOpen(false)}>
-            <Button variant="ghost" className="w-full justify-start">{t('nav.home')}</Button>
+        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-3 space-y-1 shadow-lg animate-in fade-in slide-in-from-top-1">
+          <Link
+            to="/"
+            onClick={() => setIsMenuOpen(false)}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              isActive('/')
+                ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-semibold'
+                : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900'
+            }`}
+          >
+            <Home size={18} />
+            <span>{t('nav.home')}</span>
           </Link>
-          <Link to="/donate" onClick={() => setIsMenuOpen(false)}>
-            <Button variant="ghost" className="w-full justify-start gap-2 text-rose-600 dark:text-rose-400">
-              <Heart size={16} className="fill-current" />
-              {t('nav.donate')}
-            </Button>
+
+          <Link
+            to="/donate"
+            onClick={() => setIsMenuOpen(false)}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              isActive('/donate')
+                ? 'bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 font-semibold'
+                : 'text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20'
+            }`}
+          >
+            <Heart size={18} className="fill-current" />
+            <span>{t('nav.donate')}</span>
           </Link>
-          <Link to="/" onClick={() => setIsMenuOpen(false)}>
-            <Button variant={isActive('/') ? 'secondary' : 'ghost'} className="w-full justify-start">{t('nav.dashboard')}</Button>
-          </Link>
-          <div className="flex items-center gap-3 px-2 py-1">
-            <span className="text-xs font-semibold text-slate-500">{t('nav.switchLanguage')}:</span>
-            <LangDropdown onSelect={() => setIsMenuOpen(false)} />
+
+          <a
+            href="https://github.com/kevinxvu/vibe-tools"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsMenuOpen(false)}
+            className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
+          >
+            <Github size={18} />
+            <span>GitHub Repository</span>
+          </a>
+
+          <div className="pt-2 mt-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-between px-3.5 py-2 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+              <span className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+                <Globe size={15} />
+                {t('nav.switchLanguage')}
+              </span>
+              <LangDropdown showLabelOnMobile={true} onSelect={() => setIsMenuOpen(false)} />
+            </div>
           </div>
-          {/* Login/logout hidden
-          <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
-            {user ? (
-              <Button variant="danger" size="sm" onClick={handleLogout} className="w-full justify-center gap-2">
-                <LogOut size={16} /> {t('nav.logout')}
-              </Button>
-            ) : (
-              <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="primary" size="sm" className="w-full justify-center gap-2">
-                  <UserIcon size={16} /> {t('nav.login')}
-                </Button>
-              </Link>
-            )}
-          </div>
-          */}
         </div>
       )}
     </nav>

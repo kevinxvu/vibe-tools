@@ -164,7 +164,7 @@ export const LogAnalyzer: React.FC = () => {
         {/* Left: Input Area */}
         {!logs.length ? (
           <div className="lg:w-full flex flex-col">
-            <Card className="flex-1 flex flex-col p-0 overflow-hidden border-2 border-indigo-100 dark:border-slate-800">
+            <Card className="min-h-[280px] h-[360px] lg:h-auto lg:flex-1 flex flex-col p-0 overflow-hidden border-2 border-indigo-100 dark:border-slate-800">
               <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-2 border-b border-slate-200 dark:border-slate-800">
                 <span className="text-xs font-semibold text-slate-500 uppercase">{t('tools.logAnalyzer.pasteLogsHere')}</span>
               </div>

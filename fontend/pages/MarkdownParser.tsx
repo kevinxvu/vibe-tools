@@ -194,7 +194,7 @@ export const MarkdownParser: React.FC = () => {
 
           {/* Input Area */}
           <Card className="flex-1 flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors lg:min-h-0">
-            <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+            <div className="bg-slate-50 dark:bg-slate-800/50 px-3 sm:px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
               <span className={`text-xs font-semibold uppercase flex items-center gap-1.5 ${modeConfig.color}`}>
                 {modeConfig.icon}
                 {t(`tools.markdownParser.inputLabel_${mode}`)}

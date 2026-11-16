@@ -102,8 +102,8 @@ export const StringHash: React.FC = () => {
         
         {/* Input Column */}
         <div className="lg:w-1/3 flex flex-col gap-6">
-           <Card className="h-full flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors">
-             <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+           <Card className="min-h-[240px] h-[300px] lg:h-full flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors">
+             <div className="bg-slate-50 dark:bg-slate-800/50 px-3 sm:px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                <span className="text-xs font-semibold text-slate-500 uppercase">Input Text</span>
                <Button 
                  variant="ghost" 

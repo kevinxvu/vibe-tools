@@ -193,7 +193,7 @@ export const MarkdownViewer: React.FC = () => {
             </Button>
           </div>
 
-          <Card className="flex-1 flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors h-[500px] lg:h-auto">
+          <Card className="min-h-[300px] h-[500px] lg:h-auto lg:flex-1 flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors">
              <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                <span className="text-xs font-semibold text-slate-500 uppercase">Markdown Source</span>
                <div className="flex items-center gap-2">
@@ -233,8 +233,8 @@ export const MarkdownViewer: React.FC = () => {
 
         {/* Right: Preview */}
         <div className={`lg:w-1/2 flex flex-col lg:min-h-0 min-w-0 ${activeTab === 'editor' ? 'hidden lg:flex' : 'flex'}`}>
-           <Card className="h-[500px] lg:h-full flex flex-col p-0 overflow-hidden bg-white dark:bg-slate-900 border-2 border-indigo-50 dark:border-slate-800">
-             <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center h-[52px]">
+           <Card className="min-h-[300px] h-[500px] lg:h-full flex flex-col p-0 overflow-hidden bg-white dark:bg-slate-900 border-2 border-indigo-50 dark:border-slate-800">
+             <div className="bg-slate-50 dark:bg-slate-800/50 px-3 sm:px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                <span className="text-xs font-semibold text-slate-500 uppercase flex items-center gap-2">
                  <Eye size={14} /> Live Preview
                </span>
