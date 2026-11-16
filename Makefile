@@ -29,7 +29,7 @@ provision: depends ## Provision dev environment
 	scripts/waitdb.sh
 	@$(MAKE) migrate
 
-dev: ## Bring up the server on dev environment with hot reload
+dev: fe.build.dev ## Build frontend into dist and bring up backend server with hot reload
 	air
 
 remove: ## Bring down the server on dev environment, remove all docker related stuffs as well
@@ -147,9 +147,14 @@ fe.dev: ## Run frontend dev server (http://localhost:5173)
 	@echo "🚀 Starting frontend development server..."
 	cd fontend && npm run dev
 
-fe.build: ## Build frontend for production
+fe.build: ## Build frontend for production (with obfuscation)
 	@echo "🏗️  Building frontend for production..."
 	cd fontend && npm run build
+	@echo "✅ Build complete! Output: fontend/dist/"
+
+fe.build.dev: ## Build frontend for development (faster, skips obfuscation)
+	@echo "🏗️  Building frontend for development..."
+	cd fontend && npm run build:dev
 	@echo "✅ Build complete! Output: fontend/dist/"
 
 fe.preview: ## Preview frontend production build

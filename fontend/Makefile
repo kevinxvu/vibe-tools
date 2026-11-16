@@ -19,7 +19,8 @@ help:
 	@echo ""
 	@echo "🚀 Development:"
 	@echo "  make dev           - Chạy dev server (http://localhost:5173)"
-	@echo "  make build         - Build production"
+	@echo "  make build         - Build production (có obfuscation)"
+	@echo "  make build-dev     - Build development (nhanh, không obfuscation)"
 	@echo "  make preview       - Preview production build"
 	@echo ""
 	@echo "🔍 Code Quality:"
@@ -57,6 +58,12 @@ dev:
 build:
 	@echo "🏗️  Building for production..."
 	npm run build
+	@echo "✅ Build complete! Output: dist/"
+
+# Build development (nhanh hơn, bỏ qua obfuscation)
+build-dev:
+	@echo "🏗️  Building for development (no obfuscation)..."
+	npm run build:dev
 	@echo "✅ Build complete! Output: dist/"
 
 # Preview production build

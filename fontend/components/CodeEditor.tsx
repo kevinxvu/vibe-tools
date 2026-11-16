@@ -213,7 +213,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   return (
-    <div className={`flex flex-1 relative h-full font-mono text-sm bg-white dark:bg-slate-900 overflow-hidden group ${disabled ? 'opacity-70' : ''} ${className}`}>
+    <div className={`flex flex-1 relative h-full min-h-[180px] sm:min-h-[220px] font-mono text-sm bg-white dark:bg-slate-900 overflow-hidden group ${disabled ? 'opacity-70' : ''} ${className}`}>
       
       {/* Search Widget Overlay */}
       {isSearchOpen && (
@@ -297,8 +297,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       {/* Line Numbers Column */}
       <div
         ref={lineNumsRef}
-        className="h-full py-4 pr-3 pl-2 text-right text-slate-400 bg-slate-50 dark:bg-slate-800/50 border-r border-slate-200 dark:border-slate-800 overflow-hidden select-none z-10"
-        style={{ minWidth: '3.5rem' }}
+        className="h-full min-h-[180px] sm:min-h-[220px] py-2.5 sm:py-3 pr-2 pl-1.5 text-right text-slate-400 bg-slate-50 dark:bg-slate-800/50 border-r border-slate-200 dark:border-slate-800 overflow-hidden select-none z-10 font-mono"
+        style={{ minWidth: lineCount >= 1000 ? '3rem' : lineCount >= 100 ? '2.5rem' : '2rem' }}
       >
         {lineNumbers.map(n => (
           <div key={n} className="leading-6 text-xs">{n}</div>
@@ -308,7 +308,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       {/* Editor Area */}
       <textarea
         ref={textareaRef}
-        className={`flex-1 h-full p-4 min-w-0 bg-transparent focus:outline-none resize-none whitespace-pre-wrap break-words leading-6 text-slate-800 dark:text-slate-200 ${disabled ? 'cursor-not-allowed' : ''}`}
+        rows={6}
+        className={`flex-1 h-full min-h-[180px] sm:min-h-[220px] py-2.5 px-3 sm:p-3 min-w-0 bg-transparent focus:outline-none resize-none whitespace-pre-wrap break-words leading-6 text-slate-800 dark:text-slate-200 ${disabled ? 'cursor-not-allowed' : ''}`}
         value={safeValue}
         onChange={(e) => !disabled && !readOnly && onChange(e.target.value)}
         onScroll={handleScroll}

@@ -473,7 +473,7 @@ export const HttpClient: React.FC = () => {
                       <FileText size={14} /> Text
                     </button>
                  </div>
-                 <div className="flex-1 border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden">
+                 <div className="flex-1 min-h-[200px] border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden">
                    <CodeEditor 
                     value={request.body}
                     onChange={val => setRequest({...request, body: val})}

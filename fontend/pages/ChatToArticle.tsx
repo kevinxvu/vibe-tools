@@ -127,7 +127,7 @@ export const ChatToArticle: React.FC = () => {
         {/* Left: Input Chat */}
         <div className="lg:flex-1 flex flex-col lg:min-h-0 min-w-0 gap-4">
           <Card className="h-[300px] lg:h-auto lg:flex-1 flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors">
-            <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+            <div className="bg-slate-50 dark:bg-slate-800/50 px-3 sm:px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
               <span className="text-xs font-semibold text-slate-500 uppercase">{t('tools.chatToArticle.inputChatLog')}</span>
               <div className="flex gap-2">
                 <input 

@@ -169,7 +169,7 @@ export const SmartChatReply: React.FC = () => {
           <Card className="flex-1 flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors min-h-[300px]">
             {inputType === 'text' ? (
               <>
-                 <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                 <div className="bg-slate-50 dark:bg-slate-800/50 px-3 sm:px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                    <span className="text-xs font-semibold text-slate-500 uppercase">Chat Log</span>
                    <Button variant="ghost" size="sm" onClick={() => setTextInput('')} className="text-xs h-6">Clear</Button>
                  </div>

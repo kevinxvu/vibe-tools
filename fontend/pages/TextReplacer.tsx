@@ -202,7 +202,7 @@ export const TextReplacer: React.FC = () => {
                     </div>
                     <ArrowRight size={14} className="text-slate-400" />
                     <textarea
-                      className="flex-1 min-h-[2rem] max-h-40 p-2 text-sm font-mono rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none resize-y leading-snug"
+                      className="flex-1 min-h-[42px] max-h-40 px-3 py-2 text-sm font-mono rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none resize-y leading-snug"
                       placeholder={t('tools.textReplacer.valueFor') + ' ' + key}
                       value={variables[key]}
                       rows={1}
@@ -218,7 +218,7 @@ export const TextReplacer: React.FC = () => {
         {/* Right: Output Preview */}
         <div className="lg:flex-1 flex flex-col h-full min-h-[400px] min-w-0">
           <Card className="flex-1 flex flex-col p-0 overflow-hidden border-2 border-indigo-100 dark:border-slate-700">
-             <div className="px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+             <div className="px-3 sm:px-4 py-2 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{t('tools.textReplacer.result')}</span>
                <Button size="sm" variant="secondary" onClick={handleCopy} className="h-8 text-xs gap-1">
                  <Copy size={12} /> Copy

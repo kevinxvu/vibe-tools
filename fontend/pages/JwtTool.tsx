@@ -269,8 +269,8 @@ export const JwtTool: React.FC = () => {
           <>
             {/* LEFT: Token Input */}
             <div className="lg:w-5/12 flex flex-col lg:min-h-0 min-w-0">
-              <Card className="h-full flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors">
-                <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+              <Card className="min-h-[240px] h-[300px] lg:h-full flex flex-col p-0 overflow-hidden border-2 border-transparent focus-within:border-indigo-500/50 transition-colors">
+                <div className="bg-slate-50 dark:bg-slate-800/50 px-3 sm:px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                   <span className="text-xs font-semibold text-slate-500 uppercase">{t('tools.jwtTool.encodedToken')}</span>
                   <div className="flex gap-2">
                     <button onClick={() => setEncodedToken('')} className="text-slate-400 hover:text-red-500"><Trash2 size={16} /></button>
@@ -398,7 +398,7 @@ export const JwtTool: React.FC = () => {
             </div>
 
             <div className="lg:flex-1 flex flex-col lg:min-h-0 min-w-0">
-               <Card className="h-full flex flex-col p-0 overflow-hidden border-2 border-indigo-100 dark:border-slate-700">
+               <Card className="min-h-[240px] h-[300px] lg:h-full flex flex-col p-0 overflow-hidden border-2 border-indigo-100 dark:border-slate-700">
                   <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
                     <span className="text-xs font-semibold text-slate-500 uppercase">{t('tools.jwtTool.generatedToken')}</span>
                     <button onClick={() => copyToClipboard(generatedToken)} className="text-slate-400 hover:text-indigo-500 flex items-center gap-1 text-xs">

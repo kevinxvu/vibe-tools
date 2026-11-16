@@ -11,9 +11,10 @@ const LANGS = [
 
 interface LangDropdownProps {
   onSelect?: () => void;
+  showLabelOnMobile?: boolean;
 }
 
-export const LangDropdown: React.FC<LangDropdownProps> = ({ onSelect }) => {
+export const LangDropdown: React.FC<LangDropdownProps> = ({ onSelect, showLabelOnMobile = false }) => {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -21,14 +22,16 @@ export const LangDropdown: React.FC<LangDropdownProps> = ({ onSelect }) => {
   const activeLang = LANGS.find(l => l.code === currentLang) ?? LANGS[0];
 
   return (
-    <div className="relative">
+    <div className="relative flex-shrink-0">
       <button
         onClick={() => setIsOpen(v => !v)}
-        className="flex items-center gap-1.5 h-8 px-2.5 text-xs font-semibold rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
+        className="flex items-center gap-1.5 h-8 px-2 sm:px-2.5 text-xs font-semibold rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors whitespace-nowrap flex-shrink-0"
+        title={activeLang.label}
+        aria-label={`Language: ${activeLang.label}`}
       >
-        <img src={activeLang.flag} alt="" style={{ width: 18, height: 13, objectFit: 'cover', borderRadius: 2 }} />
-        <span>{activeLang.label}</span>
-        <ChevronDown size={12} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <img src={activeLang.flag} alt="" style={{ width: 18, height: 13, objectFit: 'cover', borderRadius: 2 }} className="shrink-0" />
+        <span className={showLabelOnMobile ? 'inline' : 'hidden sm:inline'}>{activeLang.label}</span>
+        <ChevronDown size={12} className={`transition-transform shrink-0 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
